@@ -690,6 +690,132 @@
       }
 
     }
+
+    /* ===== PC UI 개선 ===== */
+    @media (min-width: 951px) {
+      body {
+        background: #eef3f7;
+      }
+
+      .header {
+        padding: 22px 32px 78px;
+      }
+
+      .header-inner {
+        max-width: 1380px;
+        position: relative;
+      }
+
+      .brand {
+        min-height: 48px;
+      }
+
+      .home-btn {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 42px;
+        padding: 0 16px;
+        border: 1px solid rgba(255,255,255,.42);
+        border-radius: 11px;
+        background: rgba(255,255,255,.12);
+        color: white;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        font-size: 13px;
+        font-weight: 800;
+        backdrop-filter: blur(6px);
+        transition: .2s ease;
+      }
+
+      .home-btn:hover {
+        background: white;
+        color: var(--blue-dark);
+        transform: translateY(-1px);
+      }
+
+      .hero {
+        margin-top: 38px;
+        max-width: 780px;
+      }
+
+      .hero h1 {
+        font-size: 46px;
+        line-height: 1.18;
+      }
+
+      .hero p {
+        font-size: 15px;
+      }
+
+      .container {
+        max-width: 1380px;
+        margin-top: -42px;
+        padding: 0 32px 60px;
+      }
+
+      .top-summary {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 16px;
+        margin-bottom: 24px;
+      }
+
+      .summary-card {
+        min-height: 132px;
+        padding: 20px 22px;
+      }
+
+      .summary-value {
+        font-size: 24px;
+      }
+
+      .layout {
+        grid-template-columns: minmax(0, 1.12fr) minmax(420px, .88fr);
+        gap: 24px;
+      }
+
+      .column {
+        gap: 24px;
+      }
+
+      .card {
+        padding: 28px;
+        border-radius: 20px;
+      }
+
+      .card-title {
+        font-size: 20px;
+      }
+
+      .form-grid {
+        gap: 16px;
+      }
+
+      input, select {
+        height: 48px;
+      }
+
+      .expense-add-grid {
+        grid-template-columns: 140px minmax(0, 1fr) 140px 86px;
+        gap: 10px;
+      }
+
+      .budget-cards {
+        gap: 14px;
+      }
+
+      .budget-card {
+        min-height: 126px;
+        padding: 18px;
+      }
+
+      .budget-value {
+        font-size: 22px;
+      }
+    }
+
   </style>
 </head>
 
@@ -698,6 +824,10 @@
 <header class="header">
 
   <div class="header-inner">
+
+    <a href="https://kfcc018-cell.github.io/mg0903/" class="home-btn" aria-label="홈으로 이동">
+      <span>⌂</span> 홈
+    </a>
 
     <div class="brand">
 
