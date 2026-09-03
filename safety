@@ -1,0 +1,1674 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MG 금융사기 예방 체험관</title>
+
+  <style>
+    :root {
+      --mg-blue: #0068b7;
+      --mg-blue-dark: #004f8b;
+      --mg-blue-light: #eaf5fd;
+
+      --green: #12a36d;
+      --green-light: #eaf8f2;
+
+      --yellow: #f4b740;
+      --yellow-light: #fff7df;
+
+      --red: #e04d5d;
+      --red-light: #fff0f2;
+
+      --bg: #f3f6f9;
+      --white: #ffffff;
+
+      --text: #172230;
+      --sub: #657588;
+      --line: #dfe7ee;
+
+      --radius-lg: 22px;
+      --radius-md: 14px;
+
+      --shadow: 0 10px 35px rgba(26, 58, 88, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family:
+        Pretendard,
+        "Noto Sans KR",
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .header {
+      background:
+        radial-gradient(
+          circle at 80% 20%,
+          rgba(255,255,255,.12),
+          transparent 30%
+        ),
+        linear-gradient(
+          135deg,
+          var(--mg-blue-dark),
+          var(--mg-blue)
+        );
+
+      color: white;
+      padding: 28px 20px 70px;
+    }
+
+    .header-inner {
+      max-width: 1180px;
+      margin: auto;
+    }
+
+    .brand-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .brand {
+      display: flex;
+      gap: 11px;
+      align-items: center;
+      font-weight: 800;
+    }
+
+    .brand-logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      color: var(--mg-blue);
+      font-weight: 900;
+    }
+
+    .safe-badge {
+      padding: 8px 12px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.13);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .hero {
+      margin-top: 40px;
+      max-width: 690px;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+
+      background: rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.18);
+
+      border-radius: 30px;
+      padding: 7px 12px;
+
+      font-size: 12px;
+      font-weight: 700;
+
+      margin-bottom: 15px;
+    }
+
+    .hero h1 {
+      font-size: clamp(30px, 5vw, 46px);
+      letter-spacing: -2px;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      margin-top: 14px;
+      color: rgba(255,255,255,.82);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .container {
+      max-width: 1180px;
+      margin: -38px auto 60px;
+      padding: 0 20px;
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .overview-card {
+      background: white;
+      border-radius: 17px;
+      border: 1px solid rgba(217,226,234,.9);
+      box-shadow: var(--shadow);
+      padding: 20px;
+    }
+
+    .overview-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background: var(--mg-blue-light);
+      color: var(--mg-blue);
+
+      font-size: 21px;
+      margin-bottom: 13px;
+    }
+
+    .overview-title {
+      font-size: 15px;
+      font-weight: 900;
+    }
+
+    .overview-text {
+      color: var(--sub);
+      font-size: 12px;
+      margin-top: 5px;
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .panel {
+      background: white;
+      border: 1px solid rgba(217,226,234,.9);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+    }
+
+    .quiz-panel {
+      padding: 27px;
+    }
+
+    .quiz-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .quiz-progress-label {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--mg-blue);
+    }
+
+    .score-pill {
+      font-size: 12px;
+      padding: 7px 11px;
+      border-radius: 20px;
+      color: #37617f;
+      background: #eef5f9;
+      font-weight: 800;
+    }
+
+    .progress {
+      width: 100%;
+      height: 8px;
+      border-radius: 10px;
+      background: #e9eef2;
+      overflow: hidden;
+      margin-bottom: 27px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(
+        90deg,
+        var(--mg-blue),
+        #25a1dc
+      );
+      transition: width .3s ease;
+    }
+
+    .scenario-badge {
+      display: inline-block;
+      padding: 6px 9px;
+      border-radius: 8px;
+
+      background: var(--red-light);
+      color: var(--red);
+
+      font-size: 11px;
+      font-weight: 900;
+      margin-bottom: 11px;
+    }
+
+    .question-title {
+      font-size: clamp(21px, 4vw, 28px);
+      letter-spacing: -1px;
+      line-height: 1.4;
+    }
+
+    .scenario-box {
+      margin-top: 20px;
+
+      background: #f7f9fb;
+      border: 1px solid #e2e9ef;
+      border-radius: 15px;
+
+      padding: 18px;
+    }
+
+    .scenario-label {
+      font-size: 11px;
+      color: var(--sub);
+      margin-bottom: 8px;
+      font-weight: 800;
+    }
+
+    .scenario-text {
+      font-size: 15px;
+      line-height: 1.8;
+      color: #34465a;
+    }
+
+    .message-card {
+      margin-top: 13px;
+      background: white;
+      border: 1px solid #dce5ec;
+      border-radius: 13px;
+      overflow: hidden;
+    }
+
+    .message-header {
+      display: flex;
+      justify-content: space-between;
+
+      padding: 10px 13px;
+      border-bottom: 1px solid #e7edf2;
+
+      font-size: 11px;
+      color: var(--sub);
+    }
+
+    .message-body {
+      padding: 15px;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .fake-link {
+      color: var(--mg-blue);
+      text-decoration: underline;
+      word-break: break-all;
+    }
+
+    .answers {
+      display: grid;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .answer-btn {
+      width: 100%;
+
+      border: 1px solid var(--line);
+      background: white;
+      border-radius: 13px;
+
+      padding: 16px;
+      text-align: left;
+
+      color: #3a4c60;
+      font-size: 14px;
+      font-weight: 700;
+
+      transition: .18s;
+    }
+
+    .answer-btn:hover {
+      border-color: var(--mg-blue);
+      background: var(--mg-blue-light);
+      color: var(--mg-blue);
+    }
+
+    .answer-btn.correct {
+      border-color: var(--green);
+      background: var(--green-light);
+      color: #19704f;
+    }
+
+    .answer-btn.wrong {
+      border-color: var(--red);
+      background: var(--red-light);
+      color: #a93946;
+    }
+
+    .answer-btn:disabled {
+      cursor: default;
+    }
+
+    .feedback {
+      display: none;
+      margin-top: 20px;
+
+      border-radius: 14px;
+      padding: 17px;
+    }
+
+    .feedback.correct {
+      display: block;
+      background: var(--green-light);
+      border: 1px solid #bce8d5;
+      color: #286c52;
+    }
+
+    .feedback.wrong {
+      display: block;
+      background: var(--red-light);
+      border: 1px solid #f1c9ce;
+      color: #8d3741;
+    }
+
+    .feedback-title {
+      font-weight: 900;
+      font-size: 15px;
+    }
+
+    .feedback-text {
+      margin-top: 7px;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .warning-signals {
+      margin-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .warning-chip {
+      background: rgba(255,255,255,.7);
+      border: 1px solid rgba(0,0,0,.06);
+      border-radius: 7px;
+
+      padding: 5px 8px;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .next-btn {
+      display: none;
+
+      width: 100%;
+      height: 52px;
+
+      margin-top: 18px;
+
+      border: none;
+      border-radius: 13px;
+
+      background: var(--mg-blue);
+      color: white;
+
+      font-weight: 900;
+    }
+
+    .next-btn.show {
+      display: block;
+    }
+
+    .side-column {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .side-card {
+      background: white;
+      border: 1px solid rgba(217,226,234,.9);
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .side-title {
+      font-size: 16px;
+      font-weight: 900;
+      margin-bottom: 14px;
+    }
+
+    .danger-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .danger-item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+
+      background: #f7f9fb;
+      border-radius: 11px;
+      padding: 11px;
+    }
+
+    .danger-number {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 8px;
+      background: var(--red-light);
+      color: var(--red);
+
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .danger-item strong {
+      display: block;
+      font-size: 12px;
+    }
+
+    .danger-item p {
+      margin-top: 2px;
+      color: var(--sub);
+      font-size: 11px;
+    }
+
+    .emergency {
+      background:
+        linear-gradient(
+          135deg,
+          #fff8e2,
+          #fffdf7
+        );
+
+      border: 1px solid #f3dfab;
+    }
+
+    .emergency-title {
+      font-size: 15px;
+      font-weight: 900;
+      color: #795d19;
+    }
+
+    .emergency p {
+      margin-top: 6px;
+      font-size: 12px;
+      color: #7a6b45;
+      line-height: 1.7;
+    }
+
+    .emergency-actions {
+      display: grid;
+      gap: 7px;
+      margin-top: 13px;
+    }
+
+    .emergency-action {
+      padding: 9px 10px;
+      background: rgba(255,255,255,.72);
+      border-radius: 9px;
+      font-size: 11px;
+      color: #665a3b;
+      font-weight: 700;
+    }
+
+    .result-screen {
+      display: none;
+      text-align: center;
+      padding: 15px 5px;
+    }
+
+    .result-screen.show {
+      display: block;
+    }
+
+    .result-icon {
+      width: 90px;
+      height: 90px;
+
+      margin: 10px auto 18px;
+
+      border-radius: 50%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 42px;
+
+      background: var(--mg-blue-light);
+    }
+
+    .result-grade {
+      font-size: 27px;
+      font-weight: 900;
+      letter-spacing: -1px;
+    }
+
+    .result-score {
+      color: var(--mg-blue);
+      font-size: 42px;
+      font-weight: 900;
+      margin-top: 4px;
+    }
+
+    .result-desc {
+      max-width: 520px;
+      margin: 13px auto 0;
+
+      color: var(--sub);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .result-stat {
+      max-width: 470px;
+      margin: 25px auto 0;
+
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .stat-box {
+      padding: 14px 8px;
+      background: #f7f9fb;
+      border-radius: 12px;
+    }
+
+    .stat-number {
+      font-weight: 900;
+      font-size: 19px;
+      color: var(--mg-blue);
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: var(--sub);
+      margin-top: 2px;
+    }
+
+    .result-tip {
+      margin: 23px auto 0;
+      max-width: 520px;
+      text-align: left;
+
+      padding: 17px;
+      border-radius: 14px;
+
+      background: #f5f9fc;
+      border: 1px solid #dce9f2;
+    }
+
+    .result-tip strong {
+      color: var(--mg-blue);
+      font-size: 13px;
+    }
+
+    .result-tip ul {
+      margin: 9px 0 0 18px;
+      color: #53677a;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .restart-btn {
+      width: 100%;
+      max-width: 380px;
+      height: 52px;
+
+      border: none;
+      border-radius: 13px;
+
+      background: var(--mg-blue);
+      color: white;
+
+      font-weight: 900;
+      margin-top: 23px;
+    }
+
+    .footer-note {
+      margin-top: 20px;
+      padding: 15px 18px;
+
+      background: #f7f9fb;
+      border-radius: 13px;
+      border: 1px solid var(--line);
+
+      font-size: 11px;
+      color: var(--sub);
+      line-height: 1.7;
+    }
+
+    @media (max-width: 900px) {
+      .main-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .overview-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .side-column {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .header {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .container {
+        padding: 0 12px;
+      }
+
+      .safe-badge {
+        display: none;
+      }
+
+      .quiz-panel {
+        padding: 20px 16px;
+      }
+
+      .side-column {
+        grid-template-columns: 1fr;
+      }
+
+      .result-stat {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="header">
+  <div class="header-inner">
+
+    <div class="brand-row">
+
+      <div class="brand">
+        <div class="brand-logo">MG</div>
+
+        <div>
+          새마을금고
+          <div
+            style="
+              font-size:11px;
+              font-weight:500;
+              opacity:.7;
+            "
+          >
+            안전한 금융생활
+          </div>
+        </div>
+      </div>
+
+      <div class="safe-badge">
+        금융사기 예방 체험 콘텐츠
+      </div>
+
+    </div>
+
+    <div class="hero">
+
+      <div class="hero-tag">
+        🛡️ 금융사기 예방 프로젝트
+      </div>
+
+      <h1>
+        당신이라면<br>
+        이 상황에서 어떻게 하시겠어요?
+      </h1>
+
+      <p>
+        보이스피싱과 스미싱은 누구에게나 발생할 수 있습니다.
+        실제와 유사한 상황을 체험하며 금융사기의 위험 신호를
+        확인해보세요.
+      </p>
+
+    </div>
+
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="overview-grid">
+
+    <div class="overview-card">
+      <div class="overview-icon">📱</div>
+      <div class="overview-title">
+        상황형 체험
+      </div>
+      <div class="overview-text">
+        문자·전화·메신저 등 다양한 금융사기 상황을 직접 판단합니다.
+      </div>
+    </div>
+
+    <div class="overview-card">
+      <div class="overview-icon">🔍</div>
+      <div class="overview-title">
+        위험 신호 확인
+      </div>
+      <div class="overview-text">
+        사기 상황에서 발견할 수 있는 대표적인 위험 신호를 안내합니다.
+      </div>
+    </div>
+
+    <div class="overview-card">
+      <div class="overview-icon">🏆</div>
+      <div class="overview-title">
+        안전지수 측정
+      </div>
+      <div class="overview-text">
+        퀴즈 결과를 바탕으로 금융사기 대응 수준을 확인할 수 있습니다.
+      </div>
+    </div>
+
+  </section>
+
+  <div class="main-grid">
+
+    <section class="panel quiz-panel">
+
+      <!-- 퀴즈 화면 -->
+      <div id="quizScreen">
+
+        <div class="quiz-top">
+          <div
+            class="quiz-progress-label"
+            id="progressLabel"
+          >
+            상황 1 / 5
+          </div>
+
+          <div
+            class="score-pill"
+            id="scoreDisplay"
+          >
+            현재 점수 0점
+          </div>
+        </div>
+
+        <div class="progress">
+          <div
+            class="progress-bar"
+            id="progressBar"
+          ></div>
+        </div>
+
+        <div
+          class="scenario-badge"
+          id="scenarioType"
+        >
+          스미싱 의심 상황
+        </div>
+
+        <h2
+          class="question-title"
+          id="questionTitle"
+        ></h2>
+
+        <div
+          class="scenario-box"
+          id="scenarioBox"
+        ></div>
+
+        <div
+          class="answers"
+          id="answers"
+        ></div>
+
+        <div
+          class="feedback"
+          id="feedback"
+        >
+
+          <div
+            class="feedback-title"
+            id="feedbackTitle"
+          ></div>
+
+          <div
+            class="feedback-text"
+            id="feedbackText"
+          ></div>
+
+          <div
+            class="warning-signals"
+            id="warningSignals"
+          ></div>
+
+        </div>
+
+        <button
+          class="next-btn"
+          id="nextBtn"
+        >
+          다음 상황으로
+        </button>
+
+      </div>
+
+      <!-- 결과 화면 -->
+      <div
+        class="result-screen"
+        id="resultScreen"
+      >
+
+        <div
+          class="result-icon"
+          id="resultIcon"
+        >
+          🛡️
+        </div>
+
+        <div
+          class="result-grade"
+          id="resultGrade"
+        ></div>
+
+        <div
+          class="result-score"
+          id="resultScore"
+        ></div>
+
+        <div
+          class="result-desc"
+          id="resultDesc"
+        ></div>
+
+        <div class="result-stat">
+
+          <div class="stat-box">
+            <div
+              class="stat-number"
+              id="correctCount"
+            >
+              0
+            </div>
+            <div class="stat-label">
+              올바른 판단
+            </div>
+          </div>
+
+          <div class="stat-box">
+            <div
+              class="stat-number"
+              id="wrongCount"
+            >
+              0
+            </div>
+            <div class="stat-label">
+              주의 필요
+            </div>
+          </div>
+
+          <div class="stat-box">
+            <div
+              class="stat-number"
+              id="safePercent"
+            >
+              0%
+            </div>
+            <div class="stat-label">
+              안전지수
+            </div>
+          </div>
+
+        </div>
+
+        <div class="result-tip">
+
+          <strong>
+            금융사기 예방 3가지 원칙
+          </strong>
+
+          <ul>
+            <li>
+              출처가 불분명한 링크나 앱은 실행하지 않습니다.
+            </li>
+
+            <li>
+              금융기관·수사기관을 사칭하며 송금을 요구하면
+              먼저 의심합니다.
+            </li>
+
+            <li>
+              가족이나 지인의 긴급 송금 요청도 직접 연락해
+              사실 여부를 확인합니다.
+            </li>
+          </ul>
+
+        </div>
+
+        <button
+          class="restart-btn"
+          id="restartBtn"
+        >
+          다시 체험하기
+        </button>
+
+      </div>
+
+      <div class="footer-note">
+        ※ 본 콘텐츠는 금융사기 예방 교육을 위한 예시이며
+        실제 금융기관·기관의 공식 연락 여부는 해당 기관의
+        공식 채널을 통해 별도로 확인하시기 바랍니다.
+      </div>
+
+    </section>
+
+    <aside class="side-column">
+
+      <section class="side-card">
+
+        <h3 class="side-title">
+          🚨 이런 말이 나오면 의심하세요
+        </h3>
+
+        <div class="danger-list">
+
+          <div class="danger-item">
+            <div class="danger-number">1</div>
+            <div>
+              <strong>
+                "지금 바로 송금하세요"
+              </strong>
+              <p>
+                판단할 시간을 주지 않고 긴급함을 강조합니다.
+              </p>
+            </div>
+          </div>
+
+          <div class="danger-item">
+            <div class="danger-number">2</div>
+            <div>
+              <strong>
+                "안전계좌로 보내세요"
+              </strong>
+              <p>
+                자금 보호를 이유로 계좌이체를 유도합니다.
+              </p>
+            </div>
+          </div>
+
+          <div class="danger-item">
+            <div class="danger-number">3</div>
+            <div>
+              <strong>
+                "이 앱을 설치하세요"
+              </strong>
+              <p>
+                출처가 확인되지 않은 앱 설치를 요구합니다.
+              </p>
+            </div>
+          </div>
+
+          <div class="danger-item">
+            <div class="danger-number">4</div>
+            <div>
+              <strong>
+                "다른 사람에게 말하지 마세요"
+              </strong>
+              <p>
+                주변의 확인과 도움을 차단하려는 대표적인 수법입니다.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+      <section class="side-card emergency">
+
+        <div class="emergency-title">
+          이미 송금했다면?
+        </div>
+
+        <p>
+          금융사기가 의심되는 경우 추가 송금을 중단하고,
+          이용 금융기관과 관련 기관을 통해 지급정지 등
+          필요한 조치를 빠르게 확인하세요.
+        </p>
+
+        <div class="emergency-actions">
+
+          <div class="emergency-action">
+            ① 추가 송금 및 정보 제공 중단
+          </div>
+
+          <div class="emergency-action">
+            ② 해당 금융기관 공식 고객센터 확인
+          </div>
+
+          <div class="emergency-action">
+            ③ 관련 신고 및 상담기관에 즉시 문의
+          </div>
+
+          <div class="emergency-action">
+            ④ 악성 앱이 의심되면 다른 안전한 기기로 확인
+          </div>
+
+        </div>
+
+      </section>
+
+    </aside>
+
+  </div>
+
+</main>
+
+<script>
+
+  const quizData = [
+
+    {
+      type: "스미싱 의심 상황",
+
+      question:
+        "택배 배송 문자가 도착했습니다. 어떻게 행동하시겠습니까?",
+
+      scenario: `
+        <div class="scenario-label">
+          수신 문자
+        </div>
+
+        <div class="message-card">
+
+          <div class="message-header">
+            <span>택배알림</span>
+            <span>오전 10:21</span>
+          </div>
+
+          <div class="message-body">
+            [배송센터]<br>
+            고객님의 택배가 주소 불명으로 반송 예정입니다.<br>
+            아래 주소에서 배송지를 확인해주세요.<br><br>
+
+            <span class="fake-link">
+              http://delivery-check-example.com
+            </span>
+          </div>
+
+        </div>
+      `,
+
+      answers: [
+        "링크를 눌러 배송지를 확인한다.",
+        "문자를 삭제하고 택배사 공식 앱이나 홈페이지에서 직접 확인한다.",
+        "문자를 가족에게 전달해 대신 확인해달라고 한다."
+      ],
+
+      correct: 1,
+
+      explanation:
+        "문자에 포함된 링크를 바로 실행하지 않고, 해당 택배사의 공식 앱이나 공식 홈페이지를 직접 이용하는 것이 안전합니다.",
+
+      signals: [
+        "외부 링크",
+        "긴급한 표현",
+        "출처 확인 필요"
+      ]
+    },
+
+    {
+      type: "기관 사칭 전화",
+
+      question:
+        "검찰을 사칭한 전화에서 본인 계좌가 범죄에 이용됐다고 합니다.",
+
+      scenario: `
+        <div class="scenario-label">
+          전화 내용
+        </div>
+
+        <div class="scenario-text">
+          “○○검찰청입니다. 고객님의 계좌가 범죄에 연루되어
+          현재 자금 보호 조치가 필요합니다.
+
+          지금부터 안내하는 안전계좌로 돈을 옮기셔야
+          피해를 막을 수 있습니다.
+
+          수사 중이니 가족이나 은행 직원에게는
+          절대 말하지 마십시오.”
+        </div>
+      `,
+
+      answers: [
+        "수사기관이니 안내받은 계좌로 즉시 송금한다.",
+        "일단 일부 금액만 송금해본다.",
+        "전화를 종료하고 기관의 공식 연락처를 직접 찾아 사실 여부를 확인한다."
+      ],
+
+      correct: 2,
+
+      explanation:
+        "수사기관을 사칭해 자금 이전을 요구하거나 비밀 유지를 요구하는 것은 대표적인 금융사기 수법입니다.",
+
+      signals: [
+        "안전계좌 송금",
+        "비밀 유지 요구",
+        "기관 사칭",
+        "긴급 송금"
+      ]
+    },
+
+    {
+      type: "메신저 피싱",
+
+      question:
+        "자녀라고 주장하는 메시지에서 급하게 돈을 보내달라고 요청합니다.",
+
+      scenario: `
+        <div class="scenario-label">
+          메신저 내용
+        </div>
+
+        <div class="message-card">
+
+          <div class="message-header">
+            <span>우리 딸 ❤️</span>
+            <span>오후 2:14</span>
+          </div>
+
+          <div class="message-body">
+            엄마 나 휴대폰 액정 깨져서 다른 번호로 연락해ㅠㅠ<br>
+            지금 급하게 결제할 게 있는데 내 인증이 안돼.<br><br>
+
+            내가 계좌 보내줄 테니까
+            90만원만 먼저 보내줄 수 있어?
+          </div>
+
+        </div>
+      `,
+
+      answers: [
+        "급해 보이므로 바로 송금한다.",
+        "기존에 알고 있는 자녀의 전화번호로 직접 전화해 확인한다.",
+        "메시지로 주민등록번호를 물어보고 맞으면 송금한다."
+      ],
+
+      correct: 1,
+
+      explanation:
+        "가족을 사칭한 송금 요청은 기존에 알고 있던 전화번호 등 독립적인 방법으로 본인 여부를 확인해야 합니다.",
+
+      signals: [
+        "새로운 연락처",
+        "긴급 송금",
+        "가족 사칭"
+      ]
+    },
+
+    {
+      type: "대출 사기",
+
+      question:
+        "저금리 대환대출이 가능하다는 전화를 받았습니다.",
+
+      scenario: `
+        <div class="scenario-label">
+          상담 내용
+        </div>
+
+        <div class="scenario-text">
+          “고객님은 특별 대상자로 선정되어
+          연 2%대 저금리 대출로 변경 가능합니다.
+
+          기존 대출을 먼저 상환해야 승인되므로,
+          저희 직원이 보내드리는 계좌로
+          기존 대출금 일부를 입금해주세요.
+
+          오늘까지만 가능합니다.”
+        </div>
+      `,
+
+      answers: [
+        "금리가 저렴하므로 안내에 따른다.",
+        "승인 여부 확인을 위해 먼저 소액을 입금한다.",
+        "송금하지 않고 해당 금융회사의 공식 채널을 통해 상품과 상담 내용을 다시 확인한다."
+      ],
+
+      correct: 2,
+
+      explanation:
+        "대출을 빌미로 기존 대출 상환금이나 보증금 등을 특정 계좌로 보내라고 요구한다면 금융사기를 의심해야 합니다.",
+
+      signals: [
+        "저금리 미끼",
+        "선입금 요구",
+        "오늘까지",
+        "개인계좌 송금"
+      ]
+    },
+
+    {
+      type: "악성 앱 설치",
+
+      question:
+        "은행 직원이라는 사람이 보안 강화를 위해 앱 설치를 요청합니다.",
+
+      scenario: `
+        <div class="scenario-label">
+          안내 내용
+        </div>
+
+        <div class="scenario-text">
+          “고객님 휴대폰에 보안 문제가 발견되었습니다.
+
+          제가 문자로 보내드리는 보안 앱을 설치하시면
+          계좌 보호가 가능합니다.
+
+          설치 후 접근 권한을 모두 허용해주세요.”
+        </div>
+      `,
+
+      answers: [
+        "은행 직원이므로 앱을 설치하고 모든 권한을 허용한다.",
+        "앱 설치를 중단하고 해당 은행 공식 앱 또는 고객센터를 통해 확인한다.",
+        "앱을 설치하되 연락처 권한만 거부한다."
+      ],
+
+      correct: 1,
+
+      explanation:
+        "문자나 메신저로 전달받은 출처 불명의 앱 설치를 피하고, 금융기관의 공식 앱과 공식 고객센터를 이용해야 합니다.",
+
+      signals: [
+        "앱 설치 요구",
+        "과도한 권한",
+        "원격 통제 위험"
+      ]
+    }
+
+  ];
+
+  let currentQuestion = 0;
+  let score = 0;
+  let correctCount = 0;
+  let answered = false;
+
+  const quizScreen =
+    document.getElementById("quizScreen");
+
+  const resultScreen =
+    document.getElementById("resultScreen");
+
+  const progressLabel =
+    document.getElementById("progressLabel");
+
+  const progressBar =
+    document.getElementById("progressBar");
+
+  const scoreDisplay =
+    document.getElementById("scoreDisplay");
+
+  const scenarioType =
+    document.getElementById("scenarioType");
+
+  const questionTitle =
+    document.getElementById("questionTitle");
+
+  const scenarioBox =
+    document.getElementById("scenarioBox");
+
+  const answers =
+    document.getElementById("answers");
+
+  const feedback =
+    document.getElementById("feedback");
+
+  const feedbackTitle =
+    document.getElementById("feedbackTitle");
+
+  const feedbackText =
+    document.getElementById("feedbackText");
+
+  const warningSignals =
+    document.getElementById("warningSignals");
+
+  const nextBtn =
+    document.getElementById("nextBtn");
+
+  function renderQuestion() {
+
+    answered = false;
+
+    const data =
+      quizData[currentQuestion];
+
+    progressLabel.textContent =
+      `상황 ${currentQuestion + 1} / ${quizData.length}`;
+
+    const progressPercent =
+      (currentQuestion / quizData.length) * 100;
+
+    progressBar.style.width =
+      `${progressPercent}%`;
+
+    scoreDisplay.textContent =
+      `현재 점수 ${score}점`;
+
+    scenarioType.textContent =
+      data.type;
+
+    questionTitle.textContent =
+      data.question;
+
+    scenarioBox.innerHTML =
+      data.scenario;
+
+    feedback.className =
+      "feedback";
+
+    nextBtn.classList.remove("show");
+
+    answers.innerHTML =
+      data.answers.map(
+        (answer, index) => `
+          <button
+            class="answer-btn"
+            data-index="${index}"
+          >
+            ${index + 1}. ${answer}
+          </button>
+        `
+      ).join("");
+
+    document
+      .querySelectorAll(".answer-btn")
+      .forEach(button => {
+
+        button.addEventListener(
+          "click",
+          () => handleAnswer(button)
+        );
+
+      });
+
+  }
+
+  function handleAnswer(button) {
+
+    if (answered) {
+      return;
+    }
+
+    answered = true;
+
+    const selected =
+      Number(button.dataset.index);
+
+    const data =
+      quizData[currentQuestion];
+
+    const buttons =
+      document.querySelectorAll(
+        ".answer-btn"
+      );
+
+    buttons.forEach(btn => {
+      btn.disabled = true;
+    });
+
+    if (selected === data.correct) {
+
+      score += 20;
+      correctCount++;
+
+      button.classList.add("correct");
+
+      feedback.className =
+        "feedback correct";
+
+      feedbackTitle.textContent =
+        "✓ 좋은 판단입니다.";
+
+    } else {
+
+      button.classList.add("wrong");
+
+      buttons[data.correct]
+        .classList.add("correct");
+
+      feedback.className =
+        "feedback wrong";
+
+      feedbackTitle.textContent =
+        "⚠ 조금 더 주의가 필요합니다.";
+
+    }
+
+    feedbackText.textContent =
+      data.explanation;
+
+    warningSignals.innerHTML =
+      data.signals.map(
+        signal => `
+          <span class="warning-chip">
+            ${signal}
+          </span>
+        `
+      ).join("");
+
+    scoreDisplay.textContent =
+      `현재 점수 ${score}점`;
+
+    nextBtn.classList.add("show");
+
+    if (
+      currentQuestion ===
+      quizData.length - 1
+    ) {
+
+      nextBtn.textContent =
+        "내 금융안전지수 확인하기";
+
+    } else {
+
+      nextBtn.textContent =
+        "다음 상황으로";
+
+    }
+
+  }
+
+  nextBtn.addEventListener(
+    "click",
+    () => {
+
+      if (
+        currentQuestion <
+        quizData.length - 1
+      ) {
+
+        currentQuestion++;
+
+        renderQuestion();
+
+      } else {
+
+        showResult();
+
+      }
+
+    }
+  );
+
+  function showResult() {
+
+    quizScreen.style.display =
+      "none";
+
+    resultScreen.classList.add(
+      "show"
+    );
+
+    progressBar.style.width =
+      "100%";
+
+    const wrong =
+      quizData.length -
+      correctCount;
+
+    document.getElementById(
+      "correctCount"
+    ).textContent =
+      correctCount;
+
+    document.getElementById(
+      "wrongCount"
+    ).textContent =
+      wrong;
+
+    document.getElementById(
+      "safePercent"
+    ).textContent =
+      `${score}%`;
+
+    document.getElementById(
+      "resultScore"
+    ).textContent =
+      `${score}점`;
+
+    const grade =
+      document.getElementById(
+        "resultGrade"
+      );
+
+    const desc =
+      document.getElementById(
+        "resultDesc"
+      );
+
+    const icon =
+      document.getElementById(
+        "resultIcon"
+      );
+
+    if (score === 100) {
+
+      grade.textContent =
+        "MG 금융안전 마스터";
+
+      icon.textContent =
+        "🏆";
+
+      desc.textContent =
+        "금융사기의 대표적인 위험 신호를 매우 잘 구분하고 있습니다. 지금처럼 공식 채널을 통한 확인 습관을 유지해보세요.";
+
+    } else if (score >= 80) {
+
+      grade.textContent =
+        "안심 대응형";
+
+      icon.textContent =
+        "🛡️";
+
+      desc.textContent =
+        "대부분의 금융사기 상황에서 안전한 판단을 할 수 있습니다. 긴급 송금이나 앱 설치 요구가 있을 때 한 번 더 확인하세요.";
+
+    } else if (score >= 60) {
+
+      grade.textContent =
+        "주의 확인형";
+
+      icon.textContent =
+        "🔍";
+
+      desc.textContent =
+        "기본적인 위험 신호는 잘 알고 있지만 몇몇 상황에서는 추가 확인이 필요합니다. 출처가 불분명한 연락에는 즉시 행동하지 않는 습관이 중요합니다.";
+
+    } else {
+
+      grade.textContent =
+        "금융안전 점검 필요";
+
+      icon.textContent =
+        "🚨";
+
+      desc.textContent =
+        "금융사기범은 긴급함과 불안감을 이용합니다. 송금이나 개인정보 제공 전에 반드시 공식 연락처를 통해 사실 여부를 확인해보세요.";
+
+    }
+
+  }
+
+  document
+    .getElementById("restartBtn")
+    .addEventListener(
+      "click",
+      () => {
+
+        currentQuestion = 0;
+        score = 0;
+        correctCount = 0;
+        answered = false;
+
+        resultScreen
+          .classList.remove("show");
+
+        quizScreen.style.display =
+          "block";
+
+        renderQuestion();
+
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+
+      }
+    );
+
+  renderQuestion();
+
+</script>
+
+</body>
+</html>
