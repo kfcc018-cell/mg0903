@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>MG 월급관리 도우미</title>
 
   <style>
@@ -11,24 +12,26 @@
       --blue-dark: #004f8a;
       --blue-light: #eaf5fd;
 
-      --green: #16a36f;
+      --green: #14a36e;
       --green-light: #eaf8f2;
 
-      --yellow: #f5b942;
-      --yellow-light: #fff8e7;
+      --yellow: #f3b63d;
+      --yellow-light: #fff7df;
 
-      --purple: #7567d8;
-      --purple-light: #f1efff;
+      --red: #e04c5d;
+      --red-light: #fff0f2;
 
-      --bg: #f4f7fa;
+      --purple: #7467d8;
+      --purple-light: #f2f0ff;
+
+      --bg: #f3f6f9;
       --white: #ffffff;
-
-      --text: #182331;
+      --text: #182433;
       --sub: #687789;
       --line: #dfe7ee;
 
       --radius: 18px;
-      --shadow: 0 10px 30px rgba(24, 60, 88, 0.08);
+      --shadow: 0 10px 32px rgba(23, 58, 88, 0.08);
     }
 
     * {
@@ -52,7 +55,8 @@
     }
 
     button,
-    input {
+    input,
+    select {
       font: inherit;
     }
 
@@ -61,18 +65,24 @@
     }
 
     .header {
-      background: linear-gradient(
-        135deg,
-        var(--blue-dark),
-        var(--blue)
-      );
+      background:
+        radial-gradient(
+          circle at 80% 20%,
+          rgba(255,255,255,.12),
+          transparent 35%
+        ),
+        linear-gradient(
+          135deg,
+          var(--blue-dark),
+          var(--blue)
+        );
 
       color: white;
-      padding: 30px 20px 70px;
+      padding: 28px 20px 70px;
     }
 
     .header-inner {
-      max-width: 1150px;
+      max-width: 1200px;
       margin: auto;
     }
 
@@ -86,13 +96,15 @@
     .brand-logo {
       width: 42px;
       height: 42px;
+
       border-radius: 12px;
-      background: white;
-      color: var(--blue);
 
       display: flex;
       align-items: center;
       justify-content: center;
+
+      background: white;
+      color: var(--blue);
 
       font-weight: 900;
     }
@@ -116,64 +128,152 @@
     }
 
     .hero h1 {
-      font-size: clamp(30px, 5vw, 43px);
-      letter-spacing: -1.7px;
+      font-size: clamp(30px, 5vw, 44px);
+      letter-spacing: -1.8px;
     }
 
     .hero p {
       margin-top: 10px;
-      color: rgba(255,255,255,.8);
+      color: rgba(255,255,255,.82);
       font-size: 14px;
     }
 
     .container {
-      max-width: 1150px;
+      max-width: 1200px;
       margin: -38px auto 50px;
       padding: 0 20px;
     }
 
-    .main-grid {
+    .top-summary {
       display: grid;
-      grid-template-columns: 360px minmax(0, 1fr);
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .summary-card {
+      background: white;
+
+      border: 1px solid rgba(215,225,233,.9);
+      border-radius: 16px;
+
+      box-shadow: var(--shadow);
+
+      padding: 18px;
+    }
+
+    .summary-icon {
+      font-size: 21px;
+    }
+
+    .summary-name {
+      margin-top: 7px;
+      font-size: 11px;
+      color: var(--sub);
+    }
+
+    .summary-value {
+      margin-top: 4px;
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: -.5px;
+    }
+
+    .summary-sub {
+      margin-top: 3px;
+      font-size: 10px;
+      color: var(--sub);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
       gap: 20px;
       align-items: start;
     }
 
-    .card {
-      background: white;
-      border-radius: var(--radius);
-      border: 1px solid rgba(215,225,233,.9);
-      box-shadow: var(--shadow);
+    .column {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
 
-    .input-card {
-      padding: 25px;
-      position: sticky;
-      top: 20px;
+    .card {
+      background: white;
+
+      border: 1px solid rgba(215,225,233,.9);
+      border-radius: var(--radius);
+
+      box-shadow: var(--shadow);
+
+      padding: 24px;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+
+      margin-bottom: 20px;
     }
 
     .card-title {
-      font-size: 20px;
+      font-size: 19px;
       font-weight: 900;
-      letter-spacing: -.7px;
+      letter-spacing: -.6px;
     }
 
     .card-desc {
-      margin-top: 5px;
-      font-size: 13px;
+      margin-top: 4px;
+      font-size: 12px;
       color: var(--sub);
     }
 
-    .form-group {
-      margin-top: 24px;
+    .small-badge {
+      padding: 6px 9px;
+      border-radius: 20px;
+
+      background: var(--blue-light);
+      color: var(--blue);
+
+      font-size: 10px;
+      font-weight: 800;
+      white-space: nowrap;
     }
 
     label {
       display: block;
-      margin-bottom: 8px;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 800;
-      color: #44556a;
+      color: #45576a;
+      margin-bottom: 7px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      height: 46px;
+
+      padding: 0 12px;
+
+      border: 1px solid var(--line);
+      border-radius: 10px;
+
+      background: white;
+      outline: none;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(0,104,183,.1);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 13px;
     }
 
     .money-input {
@@ -181,377 +281,414 @@
     }
 
     .money-input input {
-      width: 100%;
-      height: 52px;
-
-      border: 1px solid var(--line);
-      border-radius: 12px;
-
-      padding: 0 55px 0 14px;
-
-      outline: none;
-      font-weight: 800;
-      font-size: 17px;
-    }
-
-    .money-input input:focus {
-      border-color: var(--blue);
-      box-shadow: 0 0 0 3px rgba(0,104,183,.1);
+      padding-right: 48px;
     }
 
     .unit {
       position: absolute;
-      right: 14px;
+      right: 13px;
       top: 50%;
-
       transform: translateY(-50%);
 
+      font-size: 11px;
       color: var(--sub);
-      font-size: 12px;
     }
 
-    .quick-buttons {
+    .quick-btns {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 7px;
+
       margin-top: 8px;
     }
 
     .quick-btn {
-      height: 36px;
+      height: 34px;
 
-      border: 1px solid #d8e3eb;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+
       background: #f8fafc;
 
-      border-radius: 9px;
-
+      color: #516577;
       font-size: 11px;
       font-weight: 800;
-      color: #53677a;
     }
 
     .quick-btn:hover {
       background: var(--blue-light);
+      border-color: #acd2ea;
       color: var(--blue);
-      border-color: #add3eb;
     }
 
-    .strategy-list {
+    .expense-add-grid {
       display: grid;
+      grid-template-columns: 120px minmax(0,1fr) 120px 78px;
       gap: 8px;
-      margin-top: 9px;
+      margin-top: 15px;
     }
 
-    .strategy-btn {
-      width: 100%;
-      text-align: left;
-
-      padding: 13px;
-      border-radius: 11px;
-
-      border: 1px solid var(--line);
-      background: white;
-
-      transition: .2s;
-    }
-
-    .strategy-btn strong {
-      display: block;
-      font-size: 13px;
-    }
-
-    .strategy-btn span {
-      display: block;
-      font-size: 11px;
-      color: var(--sub);
-      margin-top: 2px;
-    }
-
-    .strategy-btn.active {
-      border-color: var(--blue);
-      background: var(--blue-light);
-      color: var(--blue);
-    }
-
-    .apply-btn {
-      width: 100%;
-      height: 52px;
-
-      border: none;
-      border-radius: 12px;
-
-      margin-top: 22px;
+    .add-btn {
+      border: 0;
+      border-radius: 10px;
 
       background: var(--blue);
       color: white;
 
-      font-size: 14px;
-      font-weight: 900;
-    }
-
-    .content {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .summary-card {
-      padding: 25px;
-    }
-
-    .summary-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 15px;
-    }
-
-    .summary-label {
-      color: var(--sub);
-      font-size: 12px;
-    }
-
-    .salary-display {
-      font-size: clamp(28px, 4vw, 38px);
-      font-weight: 900;
-      margin-top: 4px;
-      letter-spacing: -1px;
-    }
-
-    .strategy-badge {
-      background: var(--blue-light);
-      color: var(--blue);
-
-      border-radius: 20px;
-      padding: 7px 10px;
-
-      font-size: 11px;
-      font-weight: 800;
-    }
-
-    .budget-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin-top: 23px;
-    }
-
-    .budget-card {
-      border-radius: 15px;
-      padding: 17px;
-      border: 1px solid #e3eaf0;
-    }
-
-    .budget-icon {
-      font-size: 23px;
-    }
-
-    .budget-name {
-      margin-top: 9px;
-      font-size: 12px;
-      color: var(--sub);
-    }
-
-    .budget-value {
-      margin-top: 3px;
-      font-weight: 900;
-      font-size: 18px;
-    }
-
-    .budget-percent {
-      margin-top: 4px;
-      font-size: 11px;
-      font-weight: 800;
-    }
-
-    .fixed {
-      background: #f3f9fe;
-    }
-
-    .living {
-      background: var(--yellow-light);
-    }
-
-    .saving {
-      background: var(--green-light);
-    }
-
-    .emergency {
-      background: var(--purple-light);
-    }
-
-    .distribution-card {
-      padding: 25px;
-    }
-
-    .bar-wrapper {
-      margin-top: 21px;
-      height: 26px;
-
-      border-radius: 12px;
-      overflow: hidden;
-
-      display: flex;
-
-      background: #edf2f5;
-    }
-
-    .bar {
-      height: 100%;
-      transition: width .3s ease;
-    }
-
-    .bar-fixed {
-      background: #4a9bd3;
-    }
-
-    .bar-living {
-      background: #f1b93f;
-    }
-
-    .bar-saving {
-      background: #20a773;
-    }
-
-    .bar-emergency {
-      background: #7c70d9;
-    }
-
-    .ratio-list {
-      display: grid;
-      gap: 17px;
-      margin-top: 25px;
-    }
-
-    .ratio-item {
-      display: grid;
-      grid-template-columns: 110px 1fr 50px;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .ratio-label {
       font-size: 12px;
       font-weight: 800;
     }
 
-    .ratio-item input[type="range"] {
-      width: 100%;
-      accent-color: var(--blue);
-    }
-
-    .ratio-value {
-      text-align: right;
-      font-size: 12px;
-      font-weight: 900;
-    }
-
-    .total-ratio {
-      margin-top: 18px;
-
-      padding: 12px 14px;
-      border-radius: 11px;
-
-      background: #f6f8fa;
-
-      display: flex;
-      justify-content: space-between;
-
-      font-size: 12px;
-      font-weight: 800;
-    }
-
-    .total-ratio.warning {
-      background: #fff1f2;
-      color: #ae3947;
-    }
-
-    .advice-card {
-      padding: 25px;
-    }
-
-    .advice-list {
+    .expense-list {
       display: grid;
-      gap: 10px;
+      gap: 8px;
       margin-top: 17px;
     }
 
-    .advice-item {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
+    .expense-item {
+      display: grid;
+      grid-template-columns: 38px 1fr auto 31px;
+      align-items: center;
+      gap: 9px;
 
-      padding: 13px;
-      background: #f7f9fb;
+      border: 1px solid #e4ebf0;
       border-radius: 11px;
+
+      padding: 10px 11px;
+
+      background: #fafcfd;
     }
 
-    .advice-icon {
-      font-size: 17px;
+    .expense-icon {
+      width: 34px;
+      height: 34px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 10px;
+
+      background: var(--blue-light);
+      font-size: 16px;
+    }
+
+    .expense-name {
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .expense-type {
+      margin-top: 2px;
+      font-size: 10px;
+      color: var(--sub);
+    }
+
+    .expense-amount {
+      font-size: 12px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .delete-btn {
+      width: 29px;
+      height: 29px;
+
+      border-radius: 8px;
+      border: 0;
+
+      background: #f2f5f7;
+      color: #8897a5;
+    }
+
+    .delete-btn:hover {
+      background: var(--red-light);
+      color: var(--red);
+    }
+
+    .expense-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      margin-top: 14px;
+      padding: 13px;
+
+      border-radius: 11px;
+
+      background: #f5f8fa;
+
+      font-size: 12px;
+    }
+
+    .expense-total strong {
+      font-size: 15px;
+      color: var(--blue);
+    }
+
+    .budget-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 11px;
+    }
+
+    .budget-card {
+      min-height: 116px;
+
+      padding: 16px;
+      border-radius: 14px;
+
+      border: 1px solid #e2e9ef;
+    }
+
+    .budget-card.blue {
+      background: #f1f8fd;
+    }
+
+    .budget-card.green {
+      background: var(--green-light);
+    }
+
+    .budget-card.yellow {
+      background: var(--yellow-light);
+    }
+
+    .budget-card.purple {
+      background: var(--purple-light);
+    }
+
+    .budget-label {
+      color: var(--sub);
+      font-size: 11px;
+    }
+
+    .budget-value {
+      margin-top: 5px;
+      font-size: 20px;
+      font-weight: 900;
+    }
+
+    .budget-detail {
+      margin-top: 4px;
+      font-size: 10px;
+      color: var(--sub);
+      line-height: 1.5;
+    }
+
+    .status-box {
+      margin-top: 16px;
+      padding: 14px;
+
+      border-radius: 12px;
+
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .status-good {
+      background: var(--green-light);
+      color: #267153;
+    }
+
+    .status-warning {
+      background: var(--yellow-light);
+      color: #86651b;
+    }
+
+    .status-danger {
+      background: var(--red-light);
+      color: #9b3c48;
+    }
+
+    .subscription-box {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      align-items: center;
+
+      padding: 15px;
+
+      border-radius: 13px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #f5f2ff,
+          #faf9ff
+        );
+
+      border: 1px solid #e5e0ff;
+    }
+
+    .subscription-value {
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--purple);
+    }
+
+    .subscription-year {
+      margin-top: 4px;
+      font-size: 11px;
+      color: var(--sub);
+    }
+
+    .goal-progress {
+      margin-top: 17px;
+    }
+
+    .progress-top {
+      display: flex;
+      justify-content: space-between;
+
+      font-size: 11px;
+      font-weight: 800;
+
+      margin-bottom: 7px;
+    }
+
+    .progress {
+      height: 9px;
+
+      background: #e8eef2;
+
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+
+      background: linear-gradient(
+        90deg,
+        var(--green),
+        #4fc398
+      );
+
+      transition: width .3s ease;
+    }
+
+    .goal-result {
+      margin-top: 14px;
+
+      padding: 14px;
+
+      border-radius: 12px;
+
+      background: #f6faf8;
+
+      border: 1px solid #dceee6;
+
+      font-size: 12px;
+      color: #476a5b;
+
+      line-height: 1.7;
+    }
+
+    .diagnosis-list {
+      display: grid;
+      gap: 9px;
+    }
+
+    .diagnosis-item {
+      padding: 12px;
+
+      border-radius: 11px;
+      background: #f7f9fb;
+
+      display: flex;
+      gap: 9px;
+    }
+
+    .diagnosis-icon {
       flex-shrink: 0;
     }
 
-    .advice-text strong {
+    .diagnosis-content strong {
       display: block;
       font-size: 12px;
     }
 
-    .advice-text p {
+    .diagnosis-content p {
+      margin-top: 3px;
       font-size: 11px;
       color: var(--sub);
-      margin-top: 3px;
       line-height: 1.6;
     }
 
-    .month-goal {
-      margin-top: 18px;
-      padding: 15px;
+    .action-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
 
-      border-radius: 12px;
-      background: linear-gradient(
-        135deg,
-        #eef8f4,
-        #f9fffc
-      );
-
-      border: 1px solid #d6eee4;
+      margin-top: 15px;
     }
 
-    .month-goal strong {
-      color: #257052;
-      font-size: 13px;
-    }
+    .action-btn {
+      height: 44px;
 
-    .month-goal p {
-      margin-top: 5px;
-      color: #527064;
+      border-radius: 10px;
+      border: 0;
+
       font-size: 12px;
+      font-weight: 800;
     }
 
-    @media (max-width: 900px) {
-      .main-grid {
+    .save-btn {
+      background: var(--blue);
+      color: white;
+    }
+
+    .reset-btn {
+      background: #edf2f5;
+      color: #52687b;
+    }
+
+    @media (max-width: 950px) {
+
+      .top-summary {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .layout {
         grid-template-columns: 1fr;
       }
 
-      .input-card {
-        position: static;
-      }
     }
 
-    @media (max-width: 700px) {
-      .budget-grid {
+    @media (max-width: 650px) {
+
+      .container {
+        padding: 0 12px;
+      }
+
+      .card {
+        padding: 18px 15px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .expense-add-grid {
         grid-template-columns: 1fr 1fr;
       }
 
-      .ratio-item {
-        grid-template-columns: 90px 1fr 40px;
-      }
     }
 
-    @media (max-width: 460px) {
-      .budget-grid {
+    @media (max-width: 450px) {
+
+      .top-summary {
         grid-template-columns: 1fr;
       }
+
+      .budget-cards {
+        grid-template-columns: 1fr;
+      }
+
+      .expense-add-grid {
+        grid-template-columns: 1fr;
+      }
+
     }
   </style>
 </head>
@@ -559,434 +696,748 @@
 <body>
 
 <header class="header">
+
   <div class="header-inner">
 
     <div class="brand">
-      <div class="brand-logo">MG</div>
+
+      <div class="brand-logo">
+        MG
+      </div>
+
       <div>
         새마을금고
-        <div style="font-size:11px;font-weight:500;opacity:.7">
+
+        <div
+          style="
+            font-size:11px;
+            font-weight:500;
+            opacity:.7;
+          "
+        >
           생활금융 도우미
         </div>
+
       </div>
+
     </div>
 
     <div class="hero">
+
       <div class="hero-tag">
-        💰 똑똑한 월급관리
+        💸 내 월급 흐름 한눈에 보기
       </div>
 
       <h1>
-        월급은 들어오는데<br>
-        왜 항상 남는 돈이 없을까?
+        어디에 얼마 쓰는지 알면<br>
+        월급 관리가 쉬워집니다.
       </h1>
 
       <p>
-        월급을 목적별로 나누고 이번 달 사용할 수 있는
-        생활비와 저축 목표를 한눈에 확인해보세요.
+        월급, 고정비, 구독서비스, 생활비와 저축 목표를 입력하고
+        이번 달 실제 사용 가능한 금액을 확인해보세요.
       </p>
+
     </div>
 
   </div>
+
 </header>
 
 <main class="container">
 
-  <div class="main-grid">
+  <!-- 상단 요약 -->
 
-    <!-- 입력 -->
-    <aside class="card input-card">
+  <section class="top-summary">
 
-      <h2 class="card-title">
-        월급 입력
-      </h2>
+    <div class="summary-card">
 
-      <p class="card-desc">
-        세후 실수령액을 기준으로 입력해주세요.
-      </p>
-
-      <div class="form-group">
-
-        <label for="salary">
-          월 실수령액
-        </label>
-
-        <div class="money-input">
-          <input
-            type="number"
-            id="salary"
-            value="300"
-            min="0"
-          />
-          <span class="unit">
-            만원
-          </span>
-        </div>
-
-        <div class="quick-buttons">
-
-          <button
-            class="quick-btn"
-            data-salary="250"
-          >
-            250만원
-          </button>
-
-          <button
-            class="quick-btn"
-            data-salary="300"
-          >
-            300만원
-          </button>
-
-          <button
-            class="quick-btn"
-            data-salary="400"
-          >
-            400만원
-          </button>
-
-        </div>
-
+      <div class="summary-icon">
+        💰
       </div>
 
-      <div class="form-group">
-
-        <label>
-          관리 스타일
-        </label>
-
-        <div class="strategy-list">
-
-          <button
-            class="strategy-btn active"
-            data-strategy="balanced"
-          >
-            <strong>
-              ⚖️ 균형형
-            </strong>
-            <span>
-              생활과 저축의 균형을 맞추는 방식
-            </span>
-          </button>
-
-          <button
-            class="strategy-btn"
-            data-strategy="saving"
-          >
-            <strong>
-              🐷 저축집중형
-            </strong>
-            <span>
-              소비를 줄이고 저축 비중을 높이는 방식
-            </span>
-          </button>
-
-          <button
-            class="strategy-btn"
-            data-strategy="relaxed"
-          >
-            <strong>
-              ☕ 여유생활형
-            </strong>
-            <span>
-              생활비를 조금 더 넉넉하게 배정
-            </span>
-          </button>
-
-        </div>
-
+      <div class="summary-name">
+        월 실수령액
       </div>
 
-      <button
-        class="apply-btn"
-        id="applyBtn"
+      <div
+        class="summary-value"
+        id="summarySalary"
       >
-        월급 계획 다시 만들기
-      </button>
+        0원
+      </div>
 
-    </aside>
+      <div class="summary-sub">
+        세후 기준
+      </div>
 
-    <!-- 결과 -->
-    <section class="content">
+    </div>
 
-      <div class="card summary-card">
+    <div class="summary-card">
 
-        <div class="summary-top">
+      <div class="summary-icon">
+        🏠
+      </div>
+
+      <div class="summary-name">
+        총 고정비
+      </div>
+
+      <div
+        class="summary-value"
+        id="summaryFixed"
+      >
+        0원
+      </div>
+
+      <div
+        class="summary-sub"
+        id="fixedRatioText"
+      >
+        월급의 0%
+      </div>
+
+    </div>
+
+    <div class="summary-card">
+
+      <div class="summary-icon">
+        🛒
+      </div>
+
+      <div class="summary-name">
+        이번 달 소비 가능액
+      </div>
+
+      <div
+        class="summary-value"
+        id="summaryAvailable"
+      >
+        0원
+      </div>
+
+      <div class="summary-sub">
+        고정비·저축 제외
+      </div>
+
+    </div>
+
+    <div class="summary-card">
+
+      <div class="summary-icon">
+        📅
+      </div>
+
+      <div class="summary-name">
+        주간 사용 가능액
+      </div>
+
+      <div
+        class="summary-value"
+        id="summaryWeekly"
+      >
+        0원
+      </div>
+
+      <div class="summary-sub">
+        월 4.345주 기준
+      </div>
+
+    </div>
+
+  </section>
+
+  <div class="layout">
+
+    <!-- 왼쪽 -->
+
+    <div class="column">
+
+      <!-- 월급 -->
+
+      <section class="card">
+
+        <div class="card-header">
 
           <div>
-            <div class="summary-label">
-              이번 달 관리할 월급
-            </div>
+            <h2 class="card-title">
+              내 월급 설정
+            </h2>
 
-            <div
-              class="salary-display"
-              id="salaryDisplay"
-            >
-              3,000,000원
-            </div>
+            <p class="card-desc">
+              실제 통장에 들어오는 세후 월급을 입력해주세요.
+            </p>
           </div>
 
-          <div
-            class="strategy-badge"
-            id="strategyBadge"
+          <span class="small-badge">
+            STEP 1
+          </span>
+
+        </div>
+
+        <div class="form-grid">
+
+          <div>
+
+            <label>
+              월 실수령액
+            </label>
+
+            <div class="money-input">
+
+              <input
+                type="number"
+                id="salary"
+                value="300"
+                min="0"
+              />
+
+              <span class="unit">
+                만원
+              </span>
+
+            </div>
+
+            <div class="quick-btns">
+
+              <button
+                class="quick-btn"
+                data-salary="250"
+              >
+                250만원
+              </button>
+
+              <button
+                class="quick-btn"
+                data-salary="300"
+              >
+                300만원
+              </button>
+
+              <button
+                class="quick-btn"
+                data-salary="400"
+              >
+                400만원
+              </button>
+
+            </div>
+
+          </div>
+
+          <div>
+
+            <label>
+              월 저축 목표
+            </label>
+
+            <div class="money-input">
+
+              <input
+                type="number"
+                id="monthlySaving"
+                value="60"
+                min="0"
+              />
+
+              <span class="unit">
+                만원
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- 고정비 -->
+
+      <section class="card">
+
+        <div class="card-header">
+
+          <div>
+
+            <h2 class="card-title">
+              고정비 입력
+            </h2>
+
+            <p class="card-desc">
+              매달 거의 일정하게 빠져나가는 비용을 등록해주세요.
+            </p>
+
+          </div>
+
+          <span class="small-badge">
+            STEP 2
+          </span>
+
+        </div>
+
+        <div class="expense-add-grid">
+
+          <select id="expenseCategory">
+
+            <option value="주거">
+              🏠 주거
+            </option>
+
+            <option value="통신">
+              📱 통신
+            </option>
+
+            <option value="보험">
+              🛡️ 보험
+            </option>
+
+            <option value="교통">
+              🚗 교통
+            </option>
+
+            <option value="구독">
+              📺 구독
+            </option>
+
+            <option value="교육">
+              📚 교육
+            </option>
+
+            <option value="기타">
+              📌 기타
+            </option>
+
+          </select>
+
+          <input
+            type="text"
+            id="expenseName"
+            placeholder="예: 월세"
+          />
+
+          <div class="money-input">
+
+            <input
+              type="number"
+              id="expenseAmount"
+              placeholder="60"
+              min="0"
+            />
+
+            <span class="unit">
+              만원
+            </span>
+
+          </div>
+
+          <button
+            class="add-btn"
+            id="addExpense"
           >
-            균형형 추천
+            추가
+          </button>
+
+        </div>
+
+        <div
+          class="expense-list"
+          id="expenseList"
+        ></div>
+
+        <div class="expense-total">
+
+          <span>
+            등록된 고정비 합계
+          </span>
+
+          <strong id="expenseTotal">
+            0원
+          </strong>
+
+        </div>
+
+      </section>
+
+      <!-- 저축 목표 -->
+
+      <section class="card">
+
+        <div class="card-header">
+
+          <div>
+
+            <h2 class="card-title">
+              목돈 목표
+            </h2>
+
+            <p class="card-desc">
+              여행, 자동차, 전세, 비상금 등 목표를 설정해보세요.
+            </p>
+
+          </div>
+
+          <span class="small-badge">
+            GOAL
+          </span>
+
+        </div>
+
+        <div class="form-grid">
+
+          <div>
+
+            <label>
+              목표 이름
+            </label>
+
+            <input
+              type="text"
+              id="goalName"
+              value="여행 자금"
+            />
+
+          </div>
+
+          <div>
+
+            <label>
+              목표 금액
+            </label>
+
+            <div class="money-input">
+
+              <input
+                type="number"
+                id="goalAmount"
+                value="500"
+                min="0"
+              />
+
+              <span class="unit">
+                만원
+              </span>
+
+            </div>
+
+          </div>
+
+          <div>
+
+            <label>
+              현재 모은 금액
+            </label>
+
+            <div class="money-input">
+
+              <input
+                type="number"
+                id="currentSaved"
+                value="100"
+                min="0"
+              />
+
+              <span class="unit">
+                만원
+              </span>
+
+            </div>
+
+          </div>
+
+          <div>
+
+            <label>
+              매달 목표에 넣을 금액
+            </label>
+
+            <div class="money-input">
+
+              <input
+                type="number"
+                id="goalMonthlySaving"
+                value="40"
+                min="0"
+              />
+
+              <span class="unit">
+                만원
+              </span>
+
+            </div>
+
           </div>
 
         </div>
 
-        <div class="budget-grid">
+        <div class="goal-progress">
 
-          <div class="budget-card fixed">
-            <div class="budget-icon">🏠</div>
-            <div class="budget-name">
-              고정비
-            </div>
-            <div
-              class="budget-value"
-              id="fixedValue"
-            >
-              0원
-            </div>
-            <div
-              class="budget-percent"
-              id="fixedPercent"
-            >
-              40%
-            </div>
-          </div>
+          <div class="progress-top">
 
-          <div class="budget-card living">
-            <div class="budget-icon">🍚</div>
-            <div class="budget-name">
-              생활비
-            </div>
-            <div
-              class="budget-value"
-              id="livingValue"
-            >
-              0원
-            </div>
-            <div
-              class="budget-percent"
-              id="livingPercent"
-            >
-              30%
-            </div>
-          </div>
+            <span id="goalProgressName">
+              여행 자금
+            </span>
 
-          <div class="budget-card saving">
-            <div class="budget-icon">💰</div>
-            <div class="budget-name">
-              저축
-            </div>
-            <div
-              class="budget-value"
-              id="savingValue"
-            >
-              0원
-            </div>
-            <div
-              class="budget-percent"
-              id="savingPercent"
-            >
+            <span id="goalProgressPercent">
               20%
-            </div>
+            </span>
+
           </div>
 
-          <div class="budget-card emergency">
-            <div class="budget-icon">🛟</div>
-            <div class="budget-name">
-              비상금
-            </div>
+          <div class="progress">
+
             <div
-              class="budget-value"
-              id="emergencyValue"
-            >
-              0원
-            </div>
-            <div
-              class="budget-percent"
-              id="emergencyPercent"
-            >
-              10%
-            </div>
+              class="progress-bar"
+              id="goalProgressBar"
+            ></div>
+
           </div>
 
         </div>
 
-      </div>
+        <div
+          class="goal-result"
+          id="goalResult"
+        ></div>
 
-      <!-- 비율 조정 -->
-      <div class="card distribution-card">
+      </section>
 
-        <h2 class="card-title">
-          내 상황에 맞게 조정하기
-        </h2>
+    </div>
 
-        <p class="card-desc">
-          슬라이더를 움직여 월급 배분 비율을 직접 변경할 수 있습니다.
-        </p>
+    <!-- 오른쪽 -->
 
-        <div class="bar-wrapper">
+    <div class="column">
 
-          <div
-            class="bar bar-fixed"
-            id="barFixed"
-          ></div>
+      <!-- 예산 -->
 
-          <div
-            class="bar bar-living"
-            id="barLiving"
-          ></div>
+      <section class="card">
 
-          <div
-            class="bar bar-saving"
-            id="barSaving"
-          ></div>
+        <div class="card-header">
 
-          <div
-            class="bar bar-emergency"
-            id="barEmergency"
-          ></div>
+          <div>
+
+            <h2 class="card-title">
+              이번 달 예산 현황
+            </h2>
+
+            <p class="card-desc">
+              입력한 월급과 고정비를 기준으로 자동 계산됩니다.
+            </p>
+
+          </div>
+
+          <span class="small-badge">
+            LIVE
+          </span>
 
         </div>
 
-        <div class="ratio-list">
+        <div class="budget-cards">
 
-          <div class="ratio-item">
-            <div class="ratio-label">
+          <div class="budget-card blue">
+
+            <div class="budget-label">
               🏠 고정비
             </div>
 
-            <input
-              type="range"
-              min="0"
-              max="100"
-              value="40"
-              id="fixedRange"
-            />
+            <div
+              class="budget-value"
+              id="budgetFixed"
+            >
+              0원
+            </div>
 
             <div
-              class="ratio-value"
-              id="fixedRangeValue"
+              class="budget-detail"
+              id="budgetFixedDetail"
             >
-              40%
+              월급의 0%
             </div>
+
           </div>
 
-          <div class="ratio-item">
-            <div class="ratio-label">
-              🍚 생활비
-            </div>
+          <div class="budget-card green">
 
-            <input
-              type="range"
-              min="0"
-              max="100"
-              value="30"
-              id="livingRange"
-            />
-
-            <div
-              class="ratio-value"
-              id="livingRangeValue"
-            >
-              30%
-            </div>
-          </div>
-
-          <div class="ratio-item">
-            <div class="ratio-label">
+            <div class="budget-label">
               💰 저축
             </div>
 
-            <input
-              type="range"
-              min="0"
-              max="100"
-              value="20"
-              id="savingRange"
-            />
-
             <div
-              class="ratio-value"
-              id="savingRangeValue"
+              class="budget-value"
+              id="budgetSaving"
             >
-              20%
+              0원
             </div>
+
+            <div class="budget-detail">
+              월급날 먼저 떼어두기
+            </div>
+
           </div>
 
-          <div class="ratio-item">
-            <div class="ratio-label">
-              🛟 비상금
-            </div>
+          <div class="budget-card yellow">
 
-            <input
-              type="range"
-              min="0"
-              max="100"
-              value="10"
-              id="emergencyRange"
-            />
+            <div class="budget-label">
+              🛒 월 생활비
+            </div>
 
             <div
-              class="ratio-value"
-              id="emergencyRangeValue"
+              class="budget-value"
+              id="budgetLiving"
             >
-              10%
+              0원
             </div>
+
+            <div class="budget-detail">
+              식비·쇼핑·여가 등
+            </div>
+
+          </div>
+
+          <div class="budget-card purple">
+
+            <div class="budget-label">
+              📅 주간 생활비
+            </div>
+
+            <div
+              class="budget-value"
+              id="budgetWeekly"
+            >
+              0원
+            </div>
+
+            <div class="budget-detail">
+              일주일 단위 소비 기준
+            </div>
+
           </div>
 
         </div>
 
         <div
-          class="total-ratio"
-          id="totalRatio"
-        >
-          <span>
-            배분 합계
-          </span>
+          class="status-box"
+          id="financialStatus"
+        ></div>
 
-          <strong id="totalRatioValue">
-            100%
-          </strong>
+      </section>
+
+      <!-- 구독 -->
+
+      <section class="card">
+
+        <div class="card-header">
+
+          <div>
+
+            <h2 class="card-title">
+              구독서비스 점검
+            </h2>
+
+            <p class="card-desc">
+              등록한 고정비 중 구독서비스 비용만 따로 확인합니다.
+            </p>
+
+          </div>
+
         </div>
 
-      </div>
+        <div class="subscription-box">
 
-      <!-- 생활 팁 -->
-      <div class="card advice-card">
+          <div>
+
+            <div class="card-desc">
+              월 구독료 합계
+            </div>
+
+            <div
+              class="subscription-value"
+              id="subscriptionMonthly"
+            >
+              0원
+            </div>
+
+            <div
+              class="subscription-year"
+              id="subscriptionYearly"
+            >
+              1년이면 0원
+            </div>
+
+          </div>
+
+          <div
+            style="
+              font-size:42px;
+            "
+          >
+            📺
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- 진단 -->
+
+      <section class="card">
+
+        <div class="card-header">
+
+          <div>
+
+            <h2 class="card-title">
+              내 소비 진단
+            </h2>
+
+            <p class="card-desc">
+              현재 입력값을 기준으로 간단한 체크 포인트를 알려드립니다.
+            </p>
+
+          </div>
+
+        </div>
+
+        <div
+          class="diagnosis-list"
+          id="diagnosisList"
+        ></div>
+
+      </section>
+
+      <!-- 저장 -->
+
+      <section class="card">
 
         <h2 class="card-title">
-          이번 달 돈관리 체크
+          내 월급관리 저장
         </h2>
 
         <p class="card-desc">
-          현재 배분을 기준으로 간단한 생활금융 팁을 알려드립니다.
+          입력한 내용은 현재 브라우저에만 저장됩니다.
         </p>
 
-        <div
-          class="advice-list"
-          id="adviceList"
-        ></div>
+        <div class="action-row">
 
-        <div class="month-goal">
+          <button
+            class="action-btn save-btn"
+            id="saveData"
+          >
+            💾 저장하기
+          </button>
 
-          <strong>
-            🎯 이번 달 목표
-          </strong>
-
-          <p id="monthGoal">
-            이번 달 목표를 계산 중입니다.
-          </p>
+          <button
+            class="action-btn reset-btn"
+            id="resetData"
+          >
+            ↺ 전체 초기화
+          </button>
 
         </div>
 
-      </div>
+      </section>
 
-    </section>
+    </div>
 
   </div>
 
@@ -994,59 +1445,61 @@
 
 <script>
 
-  const salaryInput =
-    document.getElementById("salary");
-
-  const salaryDisplay =
-    document.getElementById("salaryDisplay");
-
-  const strategyBadge =
-    document.getElementById("strategyBadge");
-
-  const fixedRange =
-    document.getElementById("fixedRange");
-
-  const livingRange =
-    document.getElementById("livingRange");
-
-  const savingRange =
-    document.getElementById("savingRange");
-
-  const emergencyRange =
-    document.getElementById("emergencyRange");
-
-  let selectedStrategy =
-    "balanced";
-
-  const strategies = {
-
-    balanced: {
-      name: "균형형",
-      fixed: 40,
-      living: 30,
-      saving: 20,
-      emergency: 10
+  let expenses = [
+    {
+      category: "주거",
+      name: "월세",
+      amount: 60
     },
-
-    saving: {
-      name: "저축집중형",
-      fixed: 35,
-      living: 20,
-      saving: 35,
-      emergency: 10
+    {
+      category: "통신",
+      name: "휴대폰 요금",
+      amount: 7
     },
-
-    relaxed: {
-      name: "여유생활형",
-      fixed: 40,
-      living: 40,
-      saving: 15,
-      emergency: 5
+    {
+      category: "보험",
+      name: "보험료",
+      amount: 15
+    },
+    {
+      category: "구독",
+      name: "OTT 구독",
+      amount: 2
     }
+  ];
 
+
+  const categoryIcons = {
+    "주거": "🏠",
+    "통신": "📱",
+    "보험": "🛡️",
+    "교통": "🚗",
+    "구독": "📺",
+    "교육": "📚",
+    "기타": "📌"
   };
 
-  function formatWon(value) {
+
+  const salary =
+    document.getElementById("salary");
+
+  const monthlySaving =
+    document.getElementById("monthlySaving");
+
+  const expenseCategory =
+    document.getElementById("expenseCategory");
+
+  const expenseName =
+    document.getElementById("expenseName");
+
+  const expenseAmount =
+    document.getElementById("expenseAmount");
+
+  const expenseList =
+    document.getElementById("expenseList");
+
+
+  function won(value) {
 
     return Math.round(value)
       .toLocaleString("ko-KR")
@@ -1054,259 +1507,397 @@
 
   }
 
-  function getSalaryWon() {
 
-    return Number(
-      salaryInput.value || 0
-    ) * 10000;
+  function manwonToWon(value) {
+
+    return Number(value || 0) * 10000;
 
   }
 
-  function calculateBudget() {
 
-    const salary =
-      getSalaryWon();
+  function getSalary() {
 
-    const fixed =
-      Number(fixedRange.value);
-
-    const living =
-      Number(livingRange.value);
-
-    const saving =
-      Number(savingRange.value);
-
-    const emergency =
-      Number(emergencyRange.value);
-
-    const total =
-      fixed +
-      living +
-      saving +
-      emergency;
-
-    salaryDisplay.textContent =
-      formatWon(salary);
-
-    document.getElementById(
-      "fixedValue"
-    ).textContent =
-      formatWon(
-        salary * fixed / 100
-      );
-
-    document.getElementById(
-      "livingValue"
-    ).textContent =
-      formatWon(
-        salary * living / 100
-      );
-
-    document.getElementById(
-      "savingValue"
-    ).textContent =
-      formatWon(
-        salary * saving / 100
-      );
-
-    document.getElementById(
-      "emergencyValue"
-    ).textContent =
-      formatWon(
-        salary * emergency / 100
-      );
-
-    document.getElementById(
-      "fixedPercent"
-    ).textContent =
-      `${fixed}%`;
-
-    document.getElementById(
-      "livingPercent"
-    ).textContent =
-      `${living}%`;
-
-    document.getElementById(
-      "savingPercent"
-    ).textContent =
-      `${saving}%`;
-
-    document.getElementById(
-      "emergencyPercent"
-    ).textContent =
-      `${emergency}%`;
-
-    document.getElementById(
-      "fixedRangeValue"
-    ).textContent =
-      `${fixed}%`;
-
-    document.getElementById(
-      "livingRangeValue"
-    ).textContent =
-      `${living}%`;
-
-    document.getElementById(
-      "savingRangeValue"
-    ).textContent =
-      `${saving}%`;
-
-    document.getElementById(
-      "emergencyRangeValue"
-    ).textContent =
-      `${emergency}%`;
-
-    document.getElementById(
-      "barFixed"
-    ).style.width =
-      `${fixed}%`;
-
-    document.getElementById(
-      "barLiving"
-    ).style.width =
-      `${living}%`;
-
-    document.getElementById(
-      "barSaving"
-    ).style.width =
-      `${saving}%`;
-
-    document.getElementById(
-      "barEmergency"
-    ).style.width =
-      `${emergency}%`;
-
-    const totalRatio =
-      document.getElementById(
-        "totalRatio"
-      );
-
-    document.getElementById(
-      "totalRatioValue"
-    ).textContent =
-      `${total}%`;
-
-    if(total !== 100) {
-
-      totalRatio.classList.add(
-        "warning"
-      );
-
-    } else {
-
-      totalRatio.classList.remove(
-        "warning"
-      );
-
-    }
-
-    renderAdvice(
-      salary,
-      fixed,
-      living,
-      saving,
-      emergency,
-      total
+    return manwonToWon(
+      salary.value
     );
 
   }
 
-  function renderAdvice(
-    salary,
-    fixed,
-    living,
-    saving,
-    emergency,
-    total
-  ) {
 
-    const advice = [];
+  function getSaving() {
 
-    if(fixed > 50) {
+    return manwonToWon(
+      monthlySaving.value
+    );
 
-      advice.push({
-        icon: "🏠",
-        title: "고정비 비중이 높은 편이에요.",
-        text:
-          "통신비, 보험료, 구독서비스 등 매달 자동으로 빠져나가는 비용을 한 번 점검해보세요."
+  }
+
+
+  function getFixedExpense() {
+
+    return expenses.reduce(
+      (sum, expense) => {
+        return sum +
+          manwonToWon(
+            expense.amount
+          );
+      },
+      0
+    );
+
+  }
+
+
+  function renderExpenses() {
+
+    expenseList.innerHTML =
+      expenses.map(
+        (expense, index) => `
+          <div class="expense-item">
+
+            <div class="expense-icon">
+              ${
+                categoryIcons[
+                  expense.category
+                ] || "📌"
+              }
+            </div>
+
+            <div>
+
+              <div class="expense-name">
+                ${expense.name}
+              </div>
+
+              <div class="expense-type">
+                ${expense.category}
+              </div>
+
+            </div>
+
+            <div class="expense-amount">
+              ${won(
+                manwonToWon(
+                  expense.amount
+                )
+              )}
+            </div>
+
+            <button
+              class="delete-btn"
+              onclick="deleteExpense(${index})"
+            >
+              ×
+            </button>
+
+          </div>
+        `
+      ).join("");
+
+    updateAll();
+
+  }
+
+
+  function deleteExpense(index) {
+
+    expenses.splice(
+      index,
+      1
+    );
+
+    renderExpenses();
+
+  }
+
+
+  document.getElementById(
+    "addExpense"
+  ).addEventListener(
+    "click",
+    () => {
+
+      const category =
+        expenseCategory.value;
+
+      const name =
+        expenseName.value.trim();
+
+      const amount =
+        Number(
+          expenseAmount.value
+        );
+
+      if(!name) {
+
+        alert(
+          "고정비 항목 이름을 입력해주세요."
+        );
+
+        return;
+
+      }
+
+      if(
+        !amount ||
+        amount <= 0
+      ) {
+
+        alert(
+          "금액을 입력해주세요."
+        );
+
+        return;
+
+      }
+
+      expenses.push({
+        category,
+        name,
+        amount
       });
 
-    } else {
+      expenseName.value = "";
+      expenseAmount.value = "";
 
-      advice.push({
-        icon: "✅",
-        title: "고정비 비중이 비교적 안정적이에요.",
-        text:
-          "고정비는 한 번 줄이면 매달 절약 효과가 이어지기 때문에 정기적으로 점검하면 좋습니다."
-      });
+      renderExpenses();
 
     }
+  );
 
-    if(saving >= 30) {
 
-      advice.push({
-        icon: "🐷",
-        title: "저축 비중이 높아요.",
-        text:
-          "현재 저축 습관을 꾸준히 유지하면 목돈 마련에 도움이 될 수 있습니다."
-      });
+  function calculateGoal() {
 
-    } else if(saving < 15) {
+    const goalNameValue =
+      document.getElementById(
+        "goalName"
+      ).value || "목표";
 
-      advice.push({
-        icon: "💰",
-        title: "저축 비중을 조금 높여보세요.",
-        text:
-          "처음부터 큰 금액보다는 월급날 자동이체로 작은 금액부터 시작하는 방법도 좋습니다."
-      });
+    const goal =
+      manwonToWon(
+        document.getElementById(
+          "goalAmount"
+        ).value
+      );
 
-    }
+    const current =
+      manwonToWon(
+        document.getElementById(
+          "currentSaved"
+        ).value
+      );
 
-    if(emergency < 5) {
+    const monthly =
+      manwonToWon(
+        document.getElementById(
+          "goalMonthlySaving"
+        ).value
+      );
 
-      advice.push({
-        icon: "🛟",
-        title: "비상금 비중이 낮아요.",
-        text:
-          "예상하지 못한 병원비, 수리비 등의 지출에 대비해 생활비와 별도로 비상자금을 마련해보세요."
-      });
+    let progress = 0;
 
-    }
+    if(goal > 0) {
 
-    if(living > 40) {
-
-      advice.push({
-        icon: "🍚",
-        title: "생활비가 큰 비중을 차지하고 있어요.",
-        text:
-          "식비, 배달비, 쇼핑비처럼 조절 가능한 항목부터 주간 예산을 정해 관리해보세요."
-      });
-
-    }
-
-    if(total !== 100) {
-
-      advice.unshift({
-        icon: "⚠️",
-        title: "현재 배분 합계가 100%가 아닙니다.",
-        text:
-          "월급 전체가 빠짐없이 배분되도록 각 항목의 비율을 조정해주세요."
-      });
+      progress =
+        Math.min(
+          100,
+          current /
+          goal *
+          100
+        );
 
     }
 
     document.getElementById(
-      "adviceList"
-    ).innerHTML =
-      advice.map(
-        item => `
-          <div class="advice-item">
+      "goalProgressName"
+    ).textContent =
+      goalNameValue;
 
-            <div class="advice-icon">
+    document.getElementById(
+      "goalProgressPercent"
+    ).textContent =
+      `${progress.toFixed(0)}%`;
+
+    document.getElementById(
+      "goalProgressBar"
+    ).style.width =
+      `${progress}%`;
+
+    const remaining =
+      Math.max(
+        0,
+        goal - current
+      );
+
+    let message = "";
+
+    if(
+      goal <= 0
+    ) {
+
+      message =
+        "목표 금액을 입력해주세요.";
+
+    } else if(
+      remaining === 0
+    ) {
+
+      message =
+        `🎉 "${goalNameValue}" 목표를 이미 달성했어요!`;
+
+    } else if(
+      monthly <= 0
+    ) {
+
+      message =
+        `현재 ${won(current)}을 모았어요. 매달 저축할 금액을 입력하면 예상 달성 시점을 계산해드릴게요.`;
+
+    } else {
+
+      const months =
+        Math.ceil(
+          remaining /
+          monthly
+        );
+
+      message =
+        `현재 ${won(current)}을 모았고 앞으로 ${won(remaining)}이 필요해요. 매달 ${won(monthly)}씩 모으면 약 ${months}개월 후 목표에 도달할 수 있습니다.`;
+
+    }
+
+    document.getElementById(
+      "goalResult"
+    ).textContent =
+      message;
+
+  }
+
+
+  function renderDiagnosis(
+    salaryValue,
+    fixed,
+    saving,
+    living,
+    subscription
+  ) {
+
+    const items = [];
+
+    const fixedRatio =
+      salaryValue > 0
+      ? fixed / salaryValue * 100
+      : 0;
+
+    const savingRatio =
+      salaryValue > 0
+      ? saving / salaryValue * 100
+      : 0;
+
+
+    if(
+      fixedRatio >= 60
+    ) {
+
+      items.push({
+        icon: "🚨",
+        title:
+          "고정비 부담이 높은 편입니다.",
+        text:
+          "월급의 60% 이상이 고정비로 사용되고 있습니다. 월세, 통신비, 보험, 구독서비스 등 조정 가능한 항목을 점검해보세요."
+      });
+
+    } else if(
+      fixedRatio >= 45
+    ) {
+
+      items.push({
+        icon: "⚠️",
+        title:
+          "고정비를 한 번 점검해보세요.",
+        text:
+          "고정비 비중이 다소 높은 편입니다. 작은 항목이라도 줄이면 매달 절약 효과가 반복됩니다."
+      });
+
+    } else {
+
+      items.push({
+        icon: "✅",
+        title:
+          "고정비 비중이 비교적 안정적입니다.",
+        text:
+          "현재 수준을 유지하되 불필요한 자동결제는 정기적으로 확인해보세요."
+      });
+
+    }
+
+
+    if(
+      savingRatio >= 20
+    ) {
+
+      items.push({
+        icon: "🐷",
+        title:
+          "저축 습관이 좋아요.",
+        text:
+          `현재 월급의 약 ${savingRatio.toFixed(0)}%를 저축 목표로 설정했습니다. 월급날 자동이체하면 유지하기 더 쉽습니다.`
+      });
+
+    } else {
+
+      items.push({
+        icon: "💰",
+        title:
+          "저축을 조금씩 늘려보세요.",
+        text:
+          "큰 금액을 한 번에 모으기보다 소액이라도 매달 자동으로 분리하는 방식이 도움이 됩니다."
+      });
+
+    }
+
+
+    if(
+      subscription >= 50000
+    ) {
+
+      items.push({
+        icon: "📺",
+        title:
+          "구독서비스 점검 추천",
+        text:
+          `현재 월 구독비가 ${won(subscription)}입니다. 이용하지 않는 서비스 하나만 정리해도 연간 지출을 줄일 수 있습니다.`
+      });
+
+    }
+
+
+    const daily =
+      living > 0
+      ? living / 30
+      : 0;
+
+    items.push({
+      icon: "☕",
+      title:
+        "하루 사용 기준도 확인해보세요.",
+      text:
+        `현재 생활비 기준 하루 약 ${won(daily)}까지 사용할 수 있습니다. 큰 지출이 있는 날에는 다른 날의 소비를 조정해보세요.`
+    });
+
+
+    document.getElementById(
+      "diagnosisList"
+    ).innerHTML =
+      items.map(
+        item => `
+          <div class="diagnosis-item">
+
+            <div class="diagnosis-icon">
               ${item.icon}
             </div>
 
-            <div class="advice-text">
+            <div class="diagnosis-content">
+
               <strong>
                 ${item.title}
               </strong>
@@ -1314,135 +1905,475 @@
               <p>
                 ${item.text}
               </p>
+
             </div>
 
           </div>
         `
       ).join("");
 
-    const monthlySaving =
-      salary *
-      (saving + emergency) /
-      100;
-
-    const yearlySaving =
-      monthlySaving * 12;
-
-    document.getElementById(
-      "monthGoal"
-    ).textContent =
-      total === 100
-        ? `이 계획을 1년 동안 유지하면 저축·비상금으로 약 ${formatWon(yearlySaving)}을 마련할 수 있어요.`
-        : "배분 비율의 합계를 100%로 맞추면 예상 저축 목표를 확인할 수 있어요.";
-
   }
 
-  function applyStrategy() {
 
-    const strategy =
-      strategies[selectedStrategy];
+  function updateAll() {
 
-    fixedRange.value =
-      strategy.fixed;
+    const salaryValue =
+      getSalary();
 
-    livingRange.value =
-      strategy.living;
+    const fixed =
+      getFixedExpense();
 
-    savingRange.value =
-      strategy.saving;
+    const saving =
+      getSaving();
 
-    emergencyRange.value =
-      strategy.emergency;
-
-    strategyBadge.textContent =
-      `${strategy.name} 추천`;
-
-    calculateBudget();
-
-  }
-
-  document
-    .querySelectorAll(
-      ".strategy-btn"
-    )
-    .forEach(button => {
-
-      button.addEventListener(
-        "click",
-        () => {
-
-          document
-            .querySelectorAll(
-              ".strategy-btn"
-            )
-            .forEach(btn => {
-              btn.classList.remove(
-                "active"
-              );
-            });
-
-          button.classList.add(
-            "active"
-          );
-
-          selectedStrategy =
-            button.dataset.strategy;
-
-          applyStrategy();
-
-        }
+    const available =
+      Math.max(
+        0,
+        salaryValue -
+        fixed -
+        saving
       );
 
-    });
+    const weekly =
+      available /
+      4.345;
+
+    const fixedRatio =
+      salaryValue > 0
+      ? fixed /
+        salaryValue *
+        100
+      : 0;
+
+
+    document.getElementById(
+      "summarySalary"
+    ).textContent =
+      won(salaryValue);
+
+
+    document.getElementById(
+      "summaryFixed"
+    ).textContent =
+      won(fixed);
+
+
+    document.getElementById(
+      "fixedRatioText"
+    ).textContent =
+      `월급의 ${fixedRatio.toFixed(1)}%`;
+
+
+    document.getElementById(
+      "summaryAvailable"
+    ).textContent =
+      won(available);
+
+
+    document.getElementById(
+      "summaryWeekly"
+    ).textContent =
+      won(weekly);
+
+
+    document.getElementById(
+      "expenseTotal"
+    ).textContent =
+      won(fixed);
+
+
+    document.getElementById(
+      "budgetFixed"
+    ).textContent =
+      won(fixed);
+
+
+    document.getElementById(
+      "budgetFixedDetail"
+    ).textContent =
+      `월급의 ${fixedRatio.toFixed(1)}%`;
+
+
+    document.getElementById(
+      "budgetSaving"
+    ).textContent =
+      won(saving);
+
+
+    document.getElementById(
+      "budgetLiving"
+    ).textContent =
+      won(available);
+
+
+    document.getElementById(
+      "budgetWeekly"
+    ).textContent =
+      won(weekly);
+
+
+    const status =
+      document.getElementById(
+        "financialStatus"
+      );
+
+
+    if(
+      fixed +
+      saving >
+      salaryValue
+    ) {
+
+      status.className =
+        "status-box status-danger";
+
+      status.innerHTML =
+        "<strong>🚨 예산이 월급을 초과했습니다.</strong><br>고정비 또는 월 저축 목표를 조정해주세요.";
+
+    } else if(
+      fixedRatio >= 60
+    ) {
+
+      status.className =
+        "status-box status-danger";
+
+      status.innerHTML =
+        `<strong>고정비 부담이 높아요.</strong><br>월급의 ${fixedRatio.toFixed(1)}%가 고정비로 사용됩니다.`;
+
+    } else if(
+      fixedRatio >= 45
+    ) {
+
+      status.className =
+        "status-box status-warning";
+
+      status.innerHTML =
+        `<strong>고정비 점검이 필요해요.</strong><br>월급의 ${fixedRatio.toFixed(1)}%가 자동으로 지출되고 있습니다.`;
+
+    } else {
+
+      status.className =
+        "status-box status-good";
+
+      status.innerHTML =
+        `<strong>✅ 안정적인 편이에요.</strong><br>고정비 제외 후 ${won(available)}을 생활비로 사용할 수 있습니다.`;
+
+    }
+
+
+    const subscription =
+      expenses
+        .filter(
+          expense =>
+            expense.category ===
+            "구독"
+        )
+        .reduce(
+          (sum, item) =>
+            sum +
+            manwonToWon(
+              item.amount
+            ),
+          0
+        );
+
+
+    document.getElementById(
+      "subscriptionMonthly"
+    ).textContent =
+      won(subscription);
+
+
+    document.getElementById(
+      "subscriptionYearly"
+    ).textContent =
+      `1년이면 ${won(subscription * 12)}`;
+
+
+    renderDiagnosis(
+      salaryValue,
+      fixed,
+      saving,
+      available,
+      subscription
+    );
+
+
+    calculateGoal();
+
+  }
+
 
   document
     .querySelectorAll(
       ".quick-btn"
     )
-    .forEach(button => {
+    .forEach(
+      button => {
 
-      button.addEventListener(
-        "click",
-        () => {
+        button.addEventListener(
+          "click",
+          () => {
 
-          salaryInput.value =
-            button.dataset.salary;
+            salary.value =
+              button.dataset.salary;
 
-          calculateBudget();
+            updateAll();
 
-        }
-      );
+          }
+        );
 
-    });
-
-  [
-    fixedRange,
-    livingRange,
-    savingRange,
-    emergencyRange
-
-  ].forEach(range => {
-
-    range.addEventListener(
-      "input",
-      calculateBudget
+      }
     );
 
-  });
 
-  salaryInput.addEventListener(
-    "input",
-    calculateBudget
+  [
+    salary,
+    monthlySaving,
+    document.getElementById(
+      "goalName"
+    ),
+    document.getElementById(
+      "goalAmount"
+    ),
+    document.getElementById(
+      "currentSaved"
+    ),
+    document.getElementById(
+      "goalMonthlySaving"
+    )
+
+  ].forEach(
+    element => {
+
+      element.addEventListener(
+        "input",
+        updateAll
+      );
+
+    }
   );
+
+
+  function saveData() {
+
+    const data = {
+
+      salary:
+        salary.value,
+
+      monthlySaving:
+        monthlySaving.value,
+
+      expenses,
+
+      goalName:
+        document.getElementById(
+          "goalName"
+        ).value,
+
+      goalAmount:
+        document.getElementById(
+          "goalAmount"
+        ).value,
+
+      currentSaved:
+        document.getElementById(
+          "currentSaved"
+        ).value,
+
+      goalMonthlySaving:
+        document.getElementById(
+          "goalMonthlySaving"
+        ).value
+
+    };
+
+
+    localStorage.setItem(
+      "mgSalaryManagerV2",
+      JSON.stringify(data)
+    );
+
+
+    alert(
+      "현재 월급관리 정보가 저장되었습니다."
+    );
+
+  }
+
+
+  function loadData() {
+
+    const saved =
+      localStorage.getItem(
+        "mgSalaryManagerV2"
+      );
+
+
+    if(!saved) {
+
+      return;
+
+    }
+
+
+    try {
+
+      const data =
+        JSON.parse(saved);
+
+
+      salary.value =
+        data.salary ?? 300;
+
+
+      monthlySaving.value =
+        data.monthlySaving ?? 60;
+
+
+      if(
+        Array.isArray(
+          data.expenses
+        )
+      ) {
+
+        expenses =
+          data.expenses;
+
+      }
+
+
+      document.getElementById(
+        "goalName"
+      ).value =
+        data.goalName ??
+        "여행 자금";
+
+
+      document.getElementById(
+        "goalAmount"
+      ).value =
+        data.goalAmount ??
+        500;
+
+
+      document.getElementById(
+        "currentSaved"
+      ).value =
+        data.currentSaved ??
+        100;
+
+
+      document.getElementById(
+        "goalMonthlySaving"
+      ).value =
+        data.goalMonthlySaving ??
+        40;
+
+
+    } catch(error) {
+
+      console.error(
+        "저장 데이터 로드 실패",
+        error
+      );
+
+    }
+
+  }
+
 
   document.getElementById(
-    "applyBtn"
+    "saveData"
   ).addEventListener(
     "click",
-    applyStrategy
+    saveData
   );
 
-  applyStrategy();
+
+  document.getElementById(
+    "resetData"
+  ).addEventListener(
+    "click",
+    () => {
+
+      const ok =
+        confirm(
+          "저장된 내용을 모두 초기화할까요?"
+        );
+
+
+      if(!ok) {
+        return;
+      }
+
+
+      localStorage.removeItem(
+        "mgSalaryManagerV2"
+      );
+
+
+      salary.value = 300;
+      monthlySaving.value = 60;
+
+
+      expenses = [
+        {
+          category: "주거",
+          name: "월세",
+          amount: 60
+        },
+        {
+          category: "통신",
+          name: "휴대폰 요금",
+          amount: 7
+        },
+        {
+          category: "보험",
+          name: "보험료",
+          amount: 15
+        },
+        {
+          category: "구독",
+          name: "OTT 구독",
+          amount: 2
+        }
+      ];
+
+
+      document.getElementById(
+        "goalName"
+      ).value =
+        "여행 자금";
+
+
+      document.getElementById(
+        "goalAmount"
+      ).value =
+        500;
+
+
+      document.getElementById(
+        "currentSaved"
+      ).value =
+        100;
+
+
+      document.getElementById(
+        "goalMonthlySaving"
+      ).value =
+        40;
+
+
+      renderExpenses();
+
+    }
+  );
+
+
+  loadData();
+  renderExpenses();
 
 </script>
 
