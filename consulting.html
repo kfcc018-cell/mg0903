@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MG 디지털 대출상담</title>
+
+  <style>
+    :root {
+      --blue: #0068b7;
+      --blue-dark: #004f8b;
+      --blue-light: #eaf5fd;
+      --green: #16a36f;
+      --green-light: #eaf8f2;
+      --bg: #f4f7fa;
+      --white: #ffffff;
+      --text: #172434;
+      --sub: #66778a;
+      --line: #dfe7ee;
+      --warning: #f59e0b;
+      --danger: #dc4c64;
+      --radius: 18px;
+      --shadow: 0 8px 30px rgba(33, 64, 92, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family:
+        Pretendard,
+        "Noto Sans KR",
+        Arial,
+        sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .topbar {
+      background: linear-gradient(
+        135deg,
+        var(--blue-dark),
+        var(--blue)
+      );
+      color: white;
+      padding: 20px 24px 44px;
+    }
+
+    .topbar-inner {
+      max-width: 1280px;
+      margin: auto;
+    }
+
+    .brand-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 800;
+    }
+
+    .brand-logo {
+      width: 42px;
+      height: 42px;
+      background: white;
+      color: var(--blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      font-weight: 900;
+    }
+
+    .employee-badge {
+      font-size: 13px;
+      padding: 8px 12px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.13);
+    }
+
+    .hero {
+      margin-top: 27px;
+    }
+
+    .hero h1 {
+      font-size: clamp(25px, 4vw, 38px);
+      letter-spacing: -1.5px;
+    }
+
+    .hero p {
+      margin-top: 7px;
+      color: rgba(255,255,255,.82);
+      font-size: 14px;
+    }
+
+    .app {
+      max-width: 1280px;
+      margin: -24px auto 60px;
+      padding: 0 20px;
+    }
+
+    .step-panel {
+      padding: 18px;
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(215,226,235,.8);
+      margin-bottom: 20px;
+      overflow-x: auto;
+    }
+
+    .steps {
+      display: flex;
+      min-width: 700px;
+      align-items: center;
+    }
+
+    .step {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      color: #8a98a8;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .step::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+      margin: 0 10px;
+    }
+
+    .step:last-child::after {
+      display: none;
+    }
+
+    .step-number {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #edf2f6;
+      color: #8090a0;
+      flex-shrink: 0;
+    }
+
+    .step.active {
+      color: var(--blue);
+    }
+
+    .step.active .step-number {
+      background: var(--blue);
+      color: white;
+    }
+
+    .step.complete .step-number {
+      background: var(--green);
+      color: white;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 20px;
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: var(--radius);
+      border: 1px solid rgba(215,226,235,.8);
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+
+    .card-header {
+      margin-bottom: 20px;
+    }
+
+    .card-title {
+      font-size: 19px;
+      letter-spacing: -.6px;
+    }
+
+    .card-desc {
+      margin-top: 4px;
+      font-size: 13px;
+      color: var(--sub);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 800;
+      color: #415267;
+      margin-bottom: 7px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: white;
+      outline: none;
+      transition: .2s;
+    }
+
+    input,
+    select {
+      height: 48px;
+      padding: 0 13px;
+    }
+
+    textarea {
+      min-height: 120px;
+      padding: 13px;
+      resize: vertical;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(0,104,183,.1);
+    }
+
+    .customer-types {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .customer-type {
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      padding: 15px 10px;
+      background: white;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 800;
+      color: #536478;
+      transition: .2s;
+    }
+
+    .customer-type:hover,
+    .customer-type.active {
+      border-color: var(--blue);
+      background: var(--blue-light);
+      color: var(--blue);
+    }
+
+    .product-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .product-card {
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      padding: 17px;
+      transition: .2s;
+      position: relative;
+    }
+
+    .product-card:hover {
+      border-color: #a9cde8;
+      transform: translateY(-1px);
+    }
+
+    .product-card.recommended {
+      border: 2px solid var(--blue);
+      background: linear-gradient(
+        135deg,
+        #fff,
+        #f2f9fe
+      );
+    }
+
+    .recommend-tag {
+      position: absolute;
+      top: -10px;
+      right: 14px;
+      background: var(--blue);
+      color: white;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 5px 9px;
+      border-radius: 20px;
+    }
+
+    .product-name {
+      font-size: 16px;
+      font-weight: 900;
+    }
+
+    .product-desc {
+      margin-top: 5px;
+      font-size: 12px;
+      color: var(--sub);
+    }
+
+    .tags {
+      margin-top: 11px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      font-size: 11px;
+      padding: 5px 8px;
+      border-radius: 7px;
+      color: #42627c;
+      background: #edf5fa;
+    }
+
+    .doc-list {
+      display: grid;
+      gap: 9px;
+    }
+
+    .doc-item {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px 11px;
+      border: 1px solid #e6edf2;
+      border-radius: 10px;
+    }
+
+    .doc-item input {
+      width: 17px;
+      height: 17px;
+      accent-color: var(--blue);
+    }
+
+    .doc-name {
+      flex: 1;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .required {
+      color: var(--danger);
+      font-size: 11px;
+    }
+
+    .progress {
+      height: 7px;
+      border-radius: 10px;
+      background: #e9eef2;
+      overflow: hidden;
+      margin-top: 14px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: var(--green);
+      width: 0%;
+      transition: width .3s ease;
+    }
+
+    .progress-text {
+      text-align: right;
+      margin-top: 7px;
+      font-size: 11px;
+      color: var(--sub);
+    }
+
+    .summary-box {
+      background: linear-gradient(
+        135deg,
+        #005a9f,
+        #007bc7
+      );
+      color: white;
+      border-radius: 16px;
+      padding: 21px;
+    }
+
+    .summary-label {
+      font-size: 12px;
+      color: rgba(255,255,255,.8);
+    }
+
+    .summary-title {
+      margin-top: 5px;
+      font-size: 22px;
+      font-weight: 900;
+    }
+
+    .summary-list {
+      margin-top: 18px;
+      display: grid;
+      gap: 11px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      font-size: 13px;
+      border-bottom: 1px solid rgba(255,255,255,.13);
+      padding-bottom: 9px;
+    }
+
+    .summary-row:last-child {
+      border: 0;
+      padding-bottom: 0;
+    }
+
+    .summary-row span:first-child {
+      color: rgba(255,255,255,.7);
+    }
+
+    .next-action {
+      margin-top: 15px;
+      padding: 14px;
+      background: var(--green-light);
+      border-radius: 12px;
+      font-size: 13px;
+      color: #246b50;
+    }
+
+    .action-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 11px;
+      height: 46px;
+      font-weight: 800;
+      font-size: 13px;
+    }
+
+    .btn-primary {
+      background: var(--blue);
+      color: white;
+    }
+
+    .btn-secondary {
+      background: #eaf2f7;
+      color: #375b76;
+    }
+
+    .btn-green {
+      background: var(--green);
+      color: white;
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .faq {
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      width: 100%;
+      border: 0;
+      padding: 13px 14px;
+      background: white;
+      text-align: left;
+      font-weight: 800;
+      color: #3f5164;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .faq-answer {
+      display: none;
+      padding: 0 14px 14px;
+      font-size: 12px;
+      color: var(--sub);
+    }
+
+    .faq.open .faq-answer {
+      display: block;
+    }
+
+    .notice {
+      padding: 13px 15px;
+      background: #fff8e8;
+      border: 1px solid #f5dfac;
+      border-radius: 11px;
+      color: #80641e;
+      font-size: 12px;
+      margin-top: 16px;
+    }
+
+    .saved-message {
+      display: none;
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    @media (max-width: 960px) {
+      .dashboard {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 650px) {
+      .app {
+        padding: 0 12px;
+      }
+
+      .card {
+        padding: 19px 16px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .customer-types {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .brand-row {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .employee-badge {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <div class="brand-row">
+      <div class="brand">
+        <div class="brand-logo">MG</div>
+        <div>
+          새마을금고
+          <div style="font-size:11px;font-weight:500;opacity:.75">
+            Digital Financial Service
+          </div>
+        </div>
+      </div>
+
+      <div class="employee-badge">
+        창구 상담모드 · 상담직원
+      </div>
+    </div>
+
+    <div class="hero">
+      <h1>MG 디지털 대출상담</h1>
+      <p>
+        고객의 목적과 상황을 확인하고 상담부터 준비서류까지
+        한 화면에서 안내합니다.
+      </p>
+    </div>
+
+  </div>
+</header>
+
+<main class="app">
+
+  <!-- 상담 단계 -->
+  <section class="step-panel">
+    <div class="steps">
+
+      <div class="step complete">
+        <div class="step-number">✓</div>
+        고객 확인
+      </div>
+
+      <div class="step active">
+        <div class="step-number">2</div>
+        상담 정보
+      </div>
+
+      <div class="step">
+        <div class="step-number">3</div>
+        상품 안내
+      </div>
+
+      <div class="step">
+        <div class="step-number">4</div>
+        서류 확인
+      </div>
+
+      <div class="step">
+        <div class="step-number">5</div>
+        상담 완료
+      </div>
+
+    </div>
+  </section>
+
+  <div class="dashboard">
+
+    <!-- 왼쪽 -->
+    <div class="column">
+
+      <!-- 고객 정보 -->
+      <section class="card">
+        <div class="card-header">
+          <h2 class="card-title">고객 상담 정보</h2>
+          <p class="card-desc">
+            상담에 필요한 기본 정보를 입력해주세요.
+          </p>
+        </div>
+
+        <div class="customer-types">
+          <button class="customer-type active" data-type="직장인">
+            직장인
+          </button>
+
+          <button class="customer-type" data-type="개인사업자">
+            개인사업자
+          </button>
+
+          <button class="customer-type" data-type="소상공인">
+            소상공인
+          </button>
+
+          <button class="customer-type" data-type="기타">
+            기타
+          </button>
+        </div>
+
+        <div class="form-grid">
+
+          <div class="field">
+            <label>고객명</label>
+            <input
+              type="text"
+              id="customerName"
+              placeholder="예: 홍길동"
+            />
+          </div>
+
+          <div class="field">
+            <label>상담 목적</label>
+            <select id="loanPurpose">
+              <option>생활안정자금</option>
+              <option>사업운영자금</option>
+              <option>주택관련자금</option>
+              <option>기존 대출 대환</option>
+              <option>기타</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>희망 대출금액</label>
+            <input
+              type="number"
+              id="wantedAmount"
+              value="3000"
+            />
+          </div>
+
+          <div class="field">
+            <label>상담 채널</label>
+            <select id="channel">
+              <option>영업점 방문</option>
+              <option>전화 상담</option>
+              <option>웹 상담</option>
+              <option>모바일 상담</option>
+            </select>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 추천 상품 -->
+      <section class="card">
+
+        <div class="card-header">
+          <h2 class="card-title">추천 상품</h2>
+          <p class="card-desc">
+            현재 상담 목적을 기준으로 안내 가능한 상품 예시입니다.
+          </p>
+        </div>
+
+        <div class="product-list">
+
+          <article class="product-card recommended">
+            <span class="recommend-tag">추천</span>
+
+            <div class="product-name">
+              MG 생활안정 신용대출
+            </div>
+
+            <div class="product-desc">
+              급여소득자를 위한 생활안정 목적의
+              신용대출 상품
+            </div>
+
+            <div class="tags">
+              <span class="tag">직장인</span>
+              <span class="tag">생활안정</span>
+              <span class="tag">비대면 가능</span>
+            </div>
+          </article>
+
+          <article class="product-card">
+
+            <div class="product-name">
+              MG 상생 희망드림 대출
+            </div>
+
+            <div class="product-desc">
+              지역 소상공인 및 사업자 대상
+              상생 금융상품
+            </div>
+
+            <div class="tags">
+              <span class="tag">소상공인</span>
+              <span class="tag">사업운영</span>
+              <span class="tag">지역상생</span>
+            </div>
+          </article>
+
+          <article class="product-card">
+
+            <div class="product-name">
+              MG 맞춤형 담보대출
+            </div>
+
+            <div class="product-desc">
+              주택 및 부동산 관련 자금이 필요한
+              고객을 위한 대출상품
+            </div>
+
+            <div class="tags">
+              <span class="tag">주택자금</span>
+              <span class="tag">담보대출</span>
+            </div>
+          </article>
+
+        </div>
+
+        <div class="notice">
+          실제 상품 가입 가능 여부 및 조건은
+          금고별 상품 운영기준과 고객 심사 결과에 따라
+          달라질 수 있습니다.
+        </div>
+
+      </section>
+
+      <!-- 상담 메모 -->
+      <section class="card">
+
+        <div class="card-header">
+          <h2 class="card-title">상담 메모</h2>
+          <p class="card-desc">
+            고객 요청사항 및 후속 상담 내용을 기록할 수 있습니다.
+          </p>
+        </div>
+
+        <textarea
+          id="consultMemo"
+          placeholder="예: 기존 타 금융기관 대출 대환 희망. 다음 방문 시 소득증빙서류 지참 안내."
+        ></textarea>
+
+        <div class="action-grid">
+          <button
+            class="btn btn-secondary"
+            id="clearMemo"
+          >
+            초기화
+          </button>
+
+          <button
+            class="btn btn-primary"
+            id="saveMemo"
+          >
+            메모 저장
+          </button>
+        </div>
+
+        <div
+          class="saved-message"
+          id="savedMessage"
+        >
+          ✓ 상담 메모가 임시 저장되었습니다.
+        </div>
+
+      </section>
+
+      <!-- FAQ -->
+      <section class="card">
+
+        <div class="card-header">
+          <h2 class="card-title">
+            금융용어 빠른 안내
+          </h2>
+
+          <p class="card-desc">
+            고객 상담 중 자주 묻는 금융용어를
+            바로 설명할 수 있습니다.
+          </p>
+        </div>
+
+        <div class="faq-list">
+
+          <div class="faq">
+            <button class="faq-question">
+              DSR이란 무엇인가요?
+              <span>＋</span>
+            </button>
+
+            <div class="faq-answer">
+              DSR은 연간 소득 대비 모든 금융부채의
+              연간 원리금 상환액 비율을 나타내는 지표입니다.
+            </div>
+          </div>
+
+          <div class="faq">
+            <button class="faq-question">
+              중도상환수수료란 무엇인가요?
+              <span>＋</span>
+            </button>
+
+            <div class="faq-answer">
+              약정된 대출기간보다 일찍 대출금을 상환하는 경우
+              상품 조건에 따라 부과될 수 있는 비용입니다.
+            </div>
+          </div>
+
+          <div class="faq">
+            <button class="faq-question">
+              고정금리와 변동금리는 무엇이 다른가요?
+              <span>＋</span>
+            </button>
+
+            <div class="faq-answer">
+              고정금리는 일정 기간 금리가 유지되고,
+              변동금리는 기준금리 등의 변화에 따라
+              대출금리가 조정될 수 있습니다.
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+
+    <!-- 오른쪽 -->
+    <aside class="column">
+
+      <!-- 상담 요약 -->
+      <section class="card">
+
+        <div class="card-header">
+          <h2 class="card-title">상담 요약</h2>
+          <p class="card-desc">
+            입력 정보를 기반으로 상담 내용을 정리합니다.
+          </p>
+        </div>
+
+        <div class="summary-box">
+
+          <div class="summary-label">
+            현재 고객 유형
+          </div>
+
+          <div
+            class="summary-title"
+            id="summaryCustomerType"
+          >
+            직장인 고객
+          </div>
+
+          <div class="summary-list">
+
+            <div class="summary-row">
+              <span>고객명</span>
+              <strong id="summaryName">미입력</strong>
+            </div>
+
+            <div class="summary-row">
+              <span>상담 목적</span>
+              <strong id="summaryPurpose">
+                생활안정자금
+              </strong>
+            </div>
+
+            <div class="summary-row">
+              <span>희망금액</span>
+              <strong id="summaryAmount">
+                3,000만원
+              </strong>
+            </div>
+
+            <div class="summary-row">
+              <span>상담채널</span>
+              <strong id="summaryChannel">
+                영업점 방문
+              </strong>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="next-action">
+          <strong>추천 다음 단계</strong><br>
+          고객 자격 확인 후 필요서류를 안내하고
+          상품별 상세 조건을 비교해주세요.
+        </div>
+
+      </section>
+
+      <!-- 준비 서류 -->
+      <section class="card">
+
+        <div class="card-header">
+          <h2 class="card-title">
+            준비서류 체크리스트
+          </h2>
+
+          <p class="card-desc">
+            고객 유형에 따라 필요서류가 변경됩니다.
+          </p>
+        </div>
+
+        <div
+          class="doc-list"
+          id="documentList"
+        ></div>
+
+        <div class="progress">
+          <div
+            class="progress-bar"
+            id="progressBar"
+          ></div>
+        </div>
+
+        <div
+          class="progress-text"
+          id="progressText"
+        >
+          0 / 0 준비완료
+        </div>
+
+      </section>
+
+      <!-- 후속 업무 -->
+      <section class="card">
+
+        <div class="card-header">
+          <h2 class="card-title">
+            상담 후속 업무
+          </h2>
+
+          <p class="card-desc">
+            고객에게 필요한 후속 안내를 선택할 수 있습니다.
+          </p>
+        </div>
+
+        <div class="action-grid">
+
+          <button
+            class="btn btn-primary"
+            onclick="alert('상담 결과 요약 화면으로 이동합니다.')"
+          >
+            상담 결과 보기
+          </button>
+
+          <button
+            class="btn btn-secondary"
+            onclick="window.print()"
+          >
+            상담내용 인쇄
+          </button>
+
+          <button
+            class="btn btn-green"
+            onclick="alert('고객 안내 메시지 작성 화면으로 이동합니다.')"
+          >
+            고객 안내문
+          </button>
+
+          <button
+            class="btn btn-secondary"
+            onclick="alert('후속 상담 일정 등록 기능 예시입니다.')"
+          >
+            후속상담 등록
+          </button>
+
+        </div>
+
+      </section>
+
+    </aside>
+
+  </div>
+
+</main>
+
+<script>
+
+  let selectedCustomerType = "직장인";
+
+  const documents = {
+
+    직장인: [
+      "신분증",
+      "재직증명서",
+      "근로소득원천징수영수증",
+      "급여통장 거래내역"
+    ],
+
+    개인사업자: [
+      "신분증",
+      "사업자등록증",
+      "소득금액증명원",
+      "부가가치세 과세표준증명",
+      "사업장 임대차계약서"
+    ],
+
+    소상공인: [
+      "신분증",
+      "사업자등록증",
+      "소상공인 확인서",
+      "매출 관련 증빙자료",
+      "사업장 임대차계약서"
+    ],
+
+    기타: [
+      "신분증",
+      "소득 확인자료",
+      "재산 관련 증빙자료"
+    ]
+
+  };
+
+  const customerButtons =
+    document.querySelectorAll(".customer-type");
+
+  const documentList =
+    document.getElementById("documentList");
+
+  const progressBar =
+    document.getElementById("progressBar");
+
+  const progressText =
+    document.getElementById("progressText");
+
+  function renderDocuments() {
+
+    const docs =
+      documents[selectedCustomerType];
+
+    documentList.innerHTML =
+      docs.map((doc, index) => `
+        <label class="doc-item">
+
+          <input
+            type="checkbox"
+            class="doc-check"
+            value="${doc}"
+          >
+
+          <span class="doc-name">
+            ${doc}
+          </span>
+
+          ${
+            index < 2
+            ? '<span class="required">필수</span>'
+            : ""
+          }
+
+        </label>
+      `).join("");
+
+    document
+      .querySelectorAll(".doc-check")
+      .forEach(check => {
+        check.addEventListener(
+          "change",
+          updateDocumentProgress
+        );
+      });
+
+    updateDocumentProgress();
+  }
+
+  function updateDocumentProgress() {
+
+    const checks =
+      document.querySelectorAll(
+        ".doc-check"
+      );
+
+    const checked =
+      document.querySelectorAll(
+        ".doc-check:checked"
+      );
+
+    const total =
+      checks.length;
+
+    const complete =
+      checked.length;
+
+    const percent =
+      total
+        ? (complete / total) * 100
+        : 0;
+
+    progressBar.style.width =
+      `${percent}%`;
+
+    progressText.textContent =
+      `${complete} / ${total} 준비완료`;
+
+  }
+
+  customerButtons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+      customerButtons.forEach(
+        item => item.classList.remove("active")
+      );
+
+      button.classList.add("active");
+
+      selectedCustomerType =
+        button.dataset.type;
+
+      document.getElementById(
+        "summaryCustomerType"
+      ).textContent =
+        `${selectedCustomerType} 고객`;
+
+      renderDocuments();
+
+    });
+
+  });
+
+  const customerName =
+    document.getElementById("customerName");
+
+  const loanPurpose =
+    document.getElementById("loanPurpose");
+
+  const wantedAmount =
+    document.getElementById("wantedAmount");
+
+  const channel =
+    document.getElementById("channel");
+
+  function updateSummary() {
+
+    document.getElementById(
+      "summaryName"
+    ).textContent =
+      customerName.value.trim()
+        || "미입력";
+
+    document.getElementById(
+      "summaryPurpose"
+    ).textContent =
+      loanPurpose.value;
+
+    const amount =
+      Number(wantedAmount.value || 0);
+
+    document.getElementById(
+      "summaryAmount"
+    ).textContent =
+      `${amount.toLocaleString()}만원`;
+
+    document.getElementById(
+      "summaryChannel"
+    ).textContent =
+      channel.value;
+
+  }
+
+  [
+    customerName,
+    loanPurpose,
+    wantedAmount,
+    channel
+
+  ].forEach(element => {
+
+    element.addEventListener(
+      "input",
+      updateSummary
+    );
+
+    element.addEventListener(
+      "change",
+      updateSummary
+    );
+
+  });
+
+  document
+    .querySelectorAll(".faq-question")
+    .forEach(button => {
+
+      button.addEventListener("click", () => {
+
+        const faq =
+          button.closest(".faq");
+
+        faq.classList.toggle("open");
+
+        const symbol =
+          button.querySelector("span");
+
+        symbol.textContent =
+          faq.classList.contains("open")
+            ? "−"
+            : "＋";
+
+      });
+
+    });
+
+  const memo =
+    document.getElementById("consultMemo");
+
+  const savedMessage =
+    document.getElementById("savedMessage");
+
+  document
+    .getElementById("saveMemo")
+    .addEventListener("click", () => {
+
+      localStorage.setItem(
+        "mgConsultMemo",
+        memo.value
+      );
+
+      savedMessage.style.display =
+        "block";
+
+      setTimeout(() => {
+        savedMessage.style.display =
+          "none";
+      }, 2500);
+
+    });
+
+  document
+    .getElementById("clearMemo")
+    .addEventListener("click", () => {
+
+      memo.value = "";
+
+      localStorage.removeItem(
+        "mgConsultMemo"
+      );
+
+    });
+
+  const savedMemo =
+    localStorage.getItem(
+      "mgConsultMemo"
+    );
+
+  if(savedMemo) {
+    memo.value = savedMemo;
+  }
+
+  renderDocuments();
+  updateSummary();
+
+</script>
+
+</body>
+</html>
